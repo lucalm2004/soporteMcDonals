@@ -1,5 +1,6 @@
 Página pública
  - Login
+ - Validacion
 
 Página usuario cliente básico
  - Formulario inserción incidencias (solo propia sede)
