@@ -3,6 +3,9 @@
 namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+
+use App\Models\incidencia;
+use App\Models\subcategoria;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -18,5 +21,11 @@ class DatabaseSeeder extends Seeder
         //     'name' => 'Test User',
         //     'email' => 'test@example.com',
         // ]);
+        $this->call(categoriaSeeder::class);
+        $this->call(incidenciaSeeder::class);
+        $this->call(usuarioSeeder::class);
+        $this->call(subcategoriaSeeder::class);
+
+
     }
 }
