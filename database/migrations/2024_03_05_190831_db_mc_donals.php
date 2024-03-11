@@ -20,8 +20,8 @@ return new class extends Migration
         Schema::create('usuarios', function (Blueprint $table) {
             $table->id('ID_Usuario');
             $table->string('Nom_Usuario', 100)->nullable();
-            $table->string('Correo_Electronico', 100)->nullable();
-            $table->string('Contrasena', 100)->nullable();
+            $table->string('email', 100)->nullable();
+            $table->string('password', 100)->nullable();
             $table->enum('Rol', ['admin', 'cliente', 'gestor', 'tecnico'])->nullable();
             $table->enum('Sede', ['Barcelona', 'Berlín', 'Montreal'])->nullable();
             $table->timestamps();

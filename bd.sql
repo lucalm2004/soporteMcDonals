@@ -5,8 +5,8 @@ USE db_mcDonalds;
 CREATE TABLE Usuarios (
     ID_Usuario INT PRIMARY KEY AUTO_INCREMENT,
     Nom_Usuario VARCHAR(100),
-    Correo_Electronico VARCHAR(100),
-    Contrasena VARCHAR(100),
+    email VARCHAR(100),
+    password VARCHAR(100),
     Rol ENUM ('admin', 'cliente', 'gestor', 'tecnico'),
     Sede ENUM ('Barcelona', 'Berlín', 'Montreal')
 );
