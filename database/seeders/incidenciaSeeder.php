@@ -14,8 +14,14 @@ class incidenciaSeeder extends Seeder
      */
     public function run(): void
     {
-        // DB::table('incidencias')->insert([
-            // 'title' => 'Desarrollador back-end',
-        // ]);
+        DB::table('incidencias')->insert([
+            'ID_Cliente' => '1',
+            'Data_Alta' =>  new \DateTime(),
+            'Estado' => 'sin_asignar',
+            'Prioridad' => 'media',
+            'Comentario_Cliente' => 'Pasa algo, arreglen',
+            'ID_subcategoria' => '2',
+            'ID_Cliente' => '1',
+        ]);
     }
 }

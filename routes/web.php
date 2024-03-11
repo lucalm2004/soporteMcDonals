@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\gestorController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -13,4 +14,8 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {return view('home');});
+Route::get('/', function () {
+    return view('home');
+});
+
+Route::post('/listar', [gestorController::class, 'index'])->name('index');
