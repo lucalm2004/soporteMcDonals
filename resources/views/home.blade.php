@@ -5,6 +5,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="stylesheet" href="{{ asset('css/home.css') }}">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+    <!-- SweetAlert -->
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+<!-- jQuery -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
     
     <title>Home Support</title>
 </head>
@@ -128,7 +134,7 @@
                         <img src="https://github.com/ecemgo/mini-samples-great-tricks/assets/13468728/e082b965-bb88-4192-bce6-0eb8b0bf8e68" style="--i: 4" alt="" />
                       </div>
                     </div>
-                    <button class="btn">Crear</button>
+                    <button id="crearSW" class="btn">Crear SW</button>
                   </div>
   
                   <div class="day-and-activity activity-two">
@@ -143,7 +149,7 @@
                         <img src="https://github.com/ecemgo/mini-samples-great-tricks/assets/13468728/32037044-f076-433a-8a6e-9b80842f29c9" style="--i: 2" alt="" />
                       </div>
                     </div>
-                    <button class="btn">Crear</button>
+                    <button id="crearHW" class="btn">Crear HW</button>
                   </div>
                 </div>
               </div>
@@ -160,11 +166,11 @@
                   </div>
                   <div class="best-item box-two">
                     <p>Conexion remota fallida</p>
-                    <img src="https://github.com/ecemgo/mini-samples-great-tricks/assets/13468728/a3b3cb3a-5127-498b-91cc-a1d39499164a" alt="" />
+                    <img src="{{ asset('img/error.png') }}" alt="" />
                   </div>
                   <div class="best-item box-three">
                     <p>Proyector sin señal</p>
-                    <img src="https://github.com/ecemgo/mini-samples-great-tricks/assets/13468728/e0ee8ffb-faa8-462a-b44d-0a18c1d9604c" alt="" />
+                    <img src="{{ asset('img/proye.png') }}" alt="" />
                   </div>
                 </div>
               </div>
@@ -180,23 +186,7 @@
               <h4>Kelsey Miller</h4>
               <img src="https://github.com/ecemgo/mini-samples-great-tricks/assets/13468728/40b7cce2-c289-4954-9be0-938479832a9c" alt="user" />
             </div>
-  
-            {{-- <div class="active-calories">
-              <h1 style="align-self: flex-start">Mis tickets</h1>
-              <div class="active-calories-container">
-                <div class="box" style="--i: 20%">
-                  <div class="circle">
-                    <h2>20<small>%</small></h2>
-                  </div>
-                </div>
-                <div class="calories-content">
-                  <p><span>Hoy:</span> 400</p>
-                  <p><span>Esta Semana:</span> 3500</p>
-                  <p><span>Este Mes:</span> 14000</p>
-                </div>
-              </div>
-            </div> --}}
-  
+
  
   
             <div class="friends-activity">
@@ -224,6 +214,123 @@
           </div>
         </section>
       </main>
-    <script src="{{ asset('js/home.js') }}"></script>
+      <script src="{{ asset('js/home.js') }}"></script>
+      <script>
+ $(document).ready(function(){
+    $("#crearSW").click(function(){ // Utiliza el ID del botón
+        // Definir la variable global con la URL de las subcategorías
+        var subcategoriasRoute = '{{ route("subcategorias", ["idCategoria" => 1]) }}';
+        var incidenciaNueva = '{{ route("crear.incidencia") }}';
+
+        // Obtener subcategorías con ID de categoría 1 desde la base de datos
+        $.ajax({
+            url: subcategoriasRoute,
+            method: 'GET',
+            success: function(response) {
+                // Crear opciones para el select con los datos obtenidos
+                var options = '';
+                response.forEach(function(subcategoria) {
+                    options += '<option value="' + subcategoria.ID_subcategoria + '">' + subcategoria.Nombre_Subcategoria + '</option>';
+                });
+                // Mostrar SweetAlert con el select y espacio para el comentario
+                Swal.fire({
+                    title: 'Crear Incidencia',
+                    html:
+                        '<select id="subcategoria" class="swal2-input">' +
+                        options +
+                        '</select>' +
+                        '<textarea id="comentario" class="swal2-textarea" placeholder="Comentario"></textarea>',
+                    focusConfirm: false,
+                    preConfirm: () => {
+                        // Obtener los valores seleccionados
+                        var subcategoriaId = $('#subcategoria').val();
+                        var comentario = $('#comentario').val();
+                        // Enviar los datos a tu controlador para procesar la creación de la incidencia
+                        $.ajax({
+                            url: incidenciaNueva,
+                            method: 'POST',
+                            data: {
+                                _token: '{{ csrf_token() }}', // Agregar el token CSRF
+                                subcategoriaId: subcategoriaId,
+                                comentario: comentario
+                            },
+                            success: function(response) {
+                                Swal.fire('¡Incidencia Creada!', '', 'success');
+                            },
+                            error: function(xhr, status, error) {
+                                Swal.fire('Error', 'Hubo un problema al crear la incidencia.', 'error');
+                            }
+                        });
+                    }
+                });
+            },
+            error: function(xhr, status, error) {
+                Swal.fire('Error', 'Hubo un problema al obtener las subcategorías.', 'error');
+            }
+        });
+    });
+});
+
+
+
+
+
+
+
+          $(document).ready(function(){
+              $("#crearHW").click(function(){ // Utiliza el ID del botón
+                  // Definir la variable global con la URL de las subcategorías
+                  var subcategoriasRoute = '{{ route("subcategorias", ["idCategoria" => 2]) }}';
+  
+                  // Obtener subcategorías con ID de categoría 1 desde la base de datos
+                  $.ajax({
+                      url: subcategoriasRoute,
+                      method: 'GET',
+                      success: function(response) {
+                          // Crear opciones para el select con los datos obtenidos
+                          var options = '';
+                          response.forEach(function(subcategoria) {
+                              options += '<option value="' + subcategoria.ID_subcategoria + '">' + subcategoria.Nombre_Subcategoria + '</option>';
+                          });
+                          // Mostrar SweetAlert con el select y espacio para el comentario
+                          Swal.fire({
+                              title: 'Crear Incidencia',
+                              html:
+                                  '<select id="subcategoria" class="swal2-input">' +
+                                  options +
+                                  '</select>' +
+                                  '<textarea id="comentario" class="swal2-textarea" placeholder="Comentario"></textarea>',
+                              focusConfirm: false,
+                              preConfirm: () => {
+                                  // Obtener los valores seleccionados
+                                  var subcategoriaId = $('#subcategoria').val();
+                                  var comentario = $('#comentario').val();
+                                  // Enviar los datos a tu controlador para procesar la creación de la incidencia
+                                  $.ajax({
+                                      url: enviarIncidencia, // Reemplaza con la URL correcta
+                                      method: 'POST',
+                                      data: {
+                                          subcategoriaId: subcategoriaId,
+                                          comentario: comentario
+                                      },
+                                      success: function(response) {
+                                          Swal.fire('¡Incidencia Creada!', '', 'success');
+                                      },
+                                      error: function(xhr, status, error) {
+                                          Swal.fire('Error', 'Hubo un problema al crear la incidencia.', 'error');
+                                      }
+                                  });
+                              }
+                          });
+                      },
+                      error: function(xhr, status, error) {
+                          Swal.fire('Error', 'Hubo un problema al obtener las subcategorías.', 'error');
+                      }
+                  });
+              });
+          });
+      </script>
+    
+  
 </body>
 </html>

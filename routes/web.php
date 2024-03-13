@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\SubcategoriaController; // Reemplaza App\Http\Controllers\SubcategoriaController con la ubicación real de tu controlador
 
 /*
 |--------------------------------------------------------------------------
@@ -14,3 +15,10 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {return view('home');});
+
+Route::get('/subcategorias/{idCategoria}', [SubcategoriaController::class, 'obtenerSubcategorias'])->name("subcategorias");
+
+use App\Http\Controllers\IncidenciaController;
+
+Route::post('/crear-incidencia', [IncidenciaController::class, 'crearIncidencia'])->name('crear.incidencia');
+
