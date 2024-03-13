@@ -15,9 +15,36 @@ use Illuminate\Support\Facades\Route;
 */
 
 // Route::get('/', function () {return view('home');});
-
 Route::get('/', [AuthController::class, 'index'])->name('home');
-Route::post('/custom-login', [AuthController::class, 'login'])->name('login');
-Route::get('/logados', [AuthController::class, 'logados'])->name('logados');
-                            
+Route::post('/home', [AuthController::class, 'login'])->name('login');
+
+// Rutas protegidas
+Route::middleware('checkRole')->group(function () {
+    Route::view('home', 'home');
+});
+
+Route::middleware('auth')->get('/user', function () {
+    // Obtenemos el usuario autenticado
+    $user = auth()->user();
+
+    // Mostramos los datos del usuario
+    return $user;
+});
+
    
+
+    Route::middleware('admin')->group(function () {
+        Route::view('home_admin', 'home_admin');
+    });
+    
+    Route::middleware('gestor')->group(function () {
+        Route::view('home_gestor', 'home_gestor');
+    });
+    
+    Route::middleware('tecnico')->group(function () {
+        Route::view('home_tecnico', 'home_tecnico');
+    });
+    
+    Route::middleware('cliente')->group(function () {
+        Route::view('home_cliente', 'home_cliente');
+    });

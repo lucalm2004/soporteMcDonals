@@ -48,11 +48,13 @@ class AuthController extends Controller
 
 			// Verificamos el rol del usuario y redirigimos a la vista correspondiente
 			if ($user->Rol == 'admin') {
-				return view('admin.home');
+				return view('home_admin');
 			} elseif ($user->Rol == 'cliente') {
-				return view('user.home');
-			} elseif ($user->Rol == 'gestior') {
-				return view('home');
+				return view('user_home');
+			} elseif ($user->Rol == 'gestor') {
+				return view('home_gestor');
+			}elseif ($user->Rol == 'tecnico') {
+				return view('tecnico_home');
 			}
 		    }
 	
