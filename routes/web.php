@@ -19,3 +19,5 @@ Route::get('/', function () {
 });
 
 Route::post('/listar', [gestorController::class, 'index'])->name('index');
+
+Route::post('/select', [gestorController::class, 'select'])->name('select');

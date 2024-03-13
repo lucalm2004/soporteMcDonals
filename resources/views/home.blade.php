@@ -281,12 +281,17 @@
             </div>
         </section>
 
-        <section id="incidencias_ges" class="content" style="display: none;">
+        <section id="incidencias_ges" class="content_crud" style="display: none;">
             <div class="left-content">
-                <h1>Incidencias de equipo</h1>
-                <div class="">
-                    <table class="">
-                        <thead class="">
+                <div class="table_container">
+                    <h1>Incidencias de equipo</h1><br>
+                    <div class='filtros'>
+                        <label for="usuario_tecnico">Tecnico: </label><select id="usuario_tecnico">
+
+                        </select>
+                    </div>
+                    <table class="table">
+                        <thead class="table_head">
                             <tr>
                                 <th>ID</th>
                                 <th>Sede</th>
@@ -300,88 +305,10 @@
                                 <th>Subcategoria</th>
                             </tr>
                         </thead>
-                        <tbody id="resultado">
+                        <tbody id="resultado" class="table_body">
 
                         </tbody>
                     </table>
-
-                </div>
-            </div>
-
-            <div class="right-content">
-                <div class="user-info">
-                    <div class="icon-container">
-                        <i class="fa fa-bell nav-icon"></i>
-                        <i class="fa fa-message nav-icon"></i>
-                    </div>
-                    <h4>Kelsey Miller</h4>
-                    <img src="" alt="user" />
-                </div>
-
-                <div class="active-calories">
-                    <h1 style="align-self: flex-start">Active Calories</h1>
-                    <div class="active-calories-container">
-                        <div class="box" style="--i: 85%">
-                            <div class="circle">
-                                <h2>85<small>%</small></h2>
-                            </div>
-                        </div>
-                        <div class="calories-content">
-                            <p><span>Today:</span> 400</p>
-                            <p><span>This Week:</span> 3500</p>
-                            <p><span>This Month:</span> 14000</p>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="mobile-personal-bests">
-                    <h1>Personal Bests</h1>
-                    <div class="personal-bests-container">
-                        <div class="best-item box-one">
-                            <p>Fastest 5K Run: 22min</p>
-                            <img src="https://github.com/ecemgo/mini-samples-great-tricks/assets/13468728/05dfc444-9ed3-44cc-96af-a9cf195f5820"
-                                alt="" />
-                        </div>
-                        <div class="best-item box-two">
-                            <p>Longest Distance Cycling: 4 miles</p>
-                            <img src="https://github.com/ecemgo/mini-samples-great-tricks/assets/13468728/9ca170e9-1252-4fa6-8677-36493540c1f2"
-                                alt="" />
-                        </div>
-                        <div class="best-item box-three">
-                            <p>Longest Roller-Skating: 2 hours</p>
-                            <img src="https://github.com/ecemgo/mini-samples-great-tricks/assets/13468728/262d1611-ed4c-4297-981c-480cf7f95714"
-                                alt="" />
-                        </div>
-                    </div>
-                </div>
-
-                <div class="friends-activity">
-                    <h1>Friends Activity</h1>
-                    <div class="card-container">
-                        <div class="card">
-                            <div class="card-user-info">
-                                <img src="https://github.com/ecemgo/mini-samples-great-tricks/assets/13468728/9290037d-a5b2-4f50-aea3-9f3f2b53b441"
-                                    alt="" />
-                                <h2>Jane</h2>
-                            </div>
-                            <img class="card-img"
-                                src="https://github.com/ecemgo/mini-samples-great-tricks/assets/13468728/bef54506-ea45-4e42-a1b6-23a48f61c5e8"
-                                alt="" />
-                            <p>We completed the 30-Day Running Streak Challenge!🏃‍♀️🎉</p>
-                        </div>
-
-                        <div class="card card-two">
-                            <div class="card-user-info">
-                                <img src="https://github.com/ecemgo/mini-samples-great-tricks/assets/13468728/42616ef2-ba96-49c7-80ea-c3cf1e2ecc89"
-                                    alt="" />
-                                <h2>Mike</h2>
-                            </div>
-                            <img class="card-img"
-                                src="https://github.com/ecemgo/mini-samples-great-tricks/assets/13468728/2dcc1b94-06c5-4c62-b886-53b9e433fd44"
-                                alt="" />
-                            <p>I just set a new record in cycling: 30 miles!💪</p>
-                        </div>
-                    </div>
                 </div>
             </div>
         </section>

@@ -940,3 +940,36 @@ main {
     display: none;
   }
 }
+
+/* Estilos propios */
+
+.table_container {
+  height: 100%;
+}
+
+.table {
+  width: 100%;
+}
+
+.table_head {
+  background-color: #414656;
+  color: #F6F7FB;
+}
+
+.table_head th {
+  border-radius: 15px;
+  padding: 0.2rem;
+}
+
+.table_body {
+  border-radius: 15px;
+}
+
+.table_body td {
+  text-align: center;
+}
+
+.content_crud {
+  grid-template-columns: 100% !important;
+  height: 95vh;
+}
