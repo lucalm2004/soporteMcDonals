@@ -4,8 +4,9 @@ namespace App\Http\Middleware;
 use Closure;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
+use Illuminate\Http\Response;
 
-class ClienteMiddleware
+class HomeMiddleware
 {
     public function handle($request, Closure $next)
     {
@@ -13,9 +14,15 @@ class ClienteMiddleware
         $rolUser = session('rolUser');
 
         // Comprobar si el usuario tiene el rol de administrador
-        if ($rolUser && $rolUser === 'cliente') {
+        if ($rolUser && $rolUser === 'tecnico') {
             // Si es administrador, continuar con la solicitud
             return $next($request);
+        } elseif ($rolUser && $rolUser === 'cliente') {
+            return response(view('home_cliente'));
+        } elseif ($rolUser && $rolUser === 'gestor') {
+            return response(view('home_gestor'));
+        } elseif ($rolUser && $rolUser === 'admin') {
+            return response(view('home_admin'));
         }
 
         // Si el usuario no es administrador, retornar un error 403 (Acceso no autorizado)

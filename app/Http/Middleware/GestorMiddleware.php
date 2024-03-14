@@ -1,20 +1,24 @@
 <?php
-
 namespace App\Http\Middleware;
 
 use Closure;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Session;
 
-class TecnicoMiddleware
+class GestorMiddleware
 {
     public function handle($request, Closure $next)
     {
-        $user = Auth::user();
+        // Obtener el valor de 'rolUser' de la sesión
+        $rolUser = session('rolUser');
 
-        if ($user && $user->Rol == 'tecnico') {
+        // Comprobar si el usuario tiene el rol de administrador
+        if ($rolUser && $rolUser === 'gestor') {
+            // Si es administrador, continuar con la solicitud
             return $next($request);
         }
 
+        // Si el usuario no es administrador, retornar un error 403 (Acceso no autorizado)
         abort(403, 'Acceso no autorizado.');
     }
 }

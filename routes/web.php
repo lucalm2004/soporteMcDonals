@@ -2,6 +2,8 @@
 
 use App\Http\Controllers\AuthController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Middleware\HomeMiddleware;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -19,7 +21,11 @@ Route::get('/', [AuthController::class, 'index'])->name('home');
 Route::post('/home', [AuthController::class, 'login'])->name('login');
 
 // Rutas protegidas
-Route::middleware('checkRole')->group(function () {
+// Route::middleware('checkRole')->group(function () {
+//     Route::view('home', 'home');
+// });
+
+Route::middleware(HomeMiddleware::class)->group(function () {
     Route::view('home', 'home');
 });
 

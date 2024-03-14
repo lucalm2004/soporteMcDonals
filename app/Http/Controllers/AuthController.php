@@ -46,6 +46,8 @@ class AuthController extends Controller
 
 			$user = Auth::user();
 
+			Session::put('rolUser', $user->Rol);
+
 			// Verificamos el rol del usuario y redirigimos a la vista correspondiente
 			if ($user->Rol == 'admin') {
 				return view('home_admin');
