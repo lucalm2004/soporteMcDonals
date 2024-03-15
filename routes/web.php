@@ -22,3 +22,8 @@ use App\Http\Controllers\IncidenciaController;
 
 Route::post('/crear-incidencia', [IncidenciaController::class, 'crearIncidencia'])->name('crear.incidencia');
 
+use App\Http\Controllers\IncidenciaCrudController;
+
+Route::get('/incidencias', [IncidenciaCrudController::class, 'index'])->name('incidencias.index');
+
+

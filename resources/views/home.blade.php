@@ -20,21 +20,21 @@
           <h1>Mc Donald's Support</h1>
           <img class="logo" src="https://github.com/ecemgo/mini-samples-great-tricks/assets/13468728/4cfdcb5a-0137-4457-8be1-6e7bd1f29ebb" alt="" />
           <ul>
-            <li class="nav-item active">
+            <li id="homepage"  class="nav-item active">
               <b></b>
               <b></b>
               <a href="#">
                 <i class="fa fa-house nav-icon"></i>
-                <span class="nav-text">Home</span>
+                <span  class="nav-text">Home</span>
               </a>
             </li>
   
-            <li class="nav-item">
+            <li id="incipage"   class="nav-item">
               <b></b>
               <b></b>
               <a href="#">
                 <i class="fa fa-user nav-icon"></i>
-                <span class="nav-text">Incidencias</span>
+                <span  class="nav-text">Incidencias</span>
               </a>
             </li>
   
@@ -43,30 +43,15 @@
               <b></b>
               <a href="#">
                 <i class="fa fa-calendar-check nav-icon"></i>
-                <span class="nav-text">Schedule</span>
+                <span class="nav-text">Chats</span>
               </a>
             </li>
   
-            <li class="nav-item">
-              <b></b>
-              <b></b>
-              <a href="#">
-                <i class="fa fa-person-running nav-icon"></i>
-                <span class="nav-text">Activities</span>
-              </a>
-            </li>
-  
-            <li class="nav-item">
-              <b></b>
-              <b></b>
-              <a href="#">
-                <i class="fa fa-sliders nav-icon"></i>
-                <span class="nav-text">Settings</span>
-              </a>
-            </li>
           </ul>
         </nav>
   
+  <section id="homeContent" class="content-section">
+
         <section class="content">
           <div class="left-content">
             <div class="activities">
@@ -213,9 +198,41 @@
             </div>
           </div>
         </section>
+      </section>
+
+      <section id="incidenciasContent" class="content-section" style="display: none;">
+          <script>
+            $(document).ready(function() {
+                $.ajax({
+                    url: '{{ route("incidencias.index") }}',
+                    method: 'GET',
+                    success: function(response) {
+                        $('#incidenciasContent').html(response);
+                    },
+                    error: function(xhr, status, error) {
+                        console.error('Hubo un error al obtener las incidencias:', error);
+                    }
+                });
+            });
+          </script>
+
+    </section>
+    
       </main>
+      
       <script src="{{ asset('js/home.js') }}"></script>
       <script>
+document.getElementById('homepage').addEventListener('click', function () {
+        document.getElementById('incidenciasContent').style.display = 'none';
+        document.getElementById('homeContent').style.display = 'grid';
+    })
+
+    document.getElementById('incipage').addEventListener('click', function () {
+        document.getElementById('homeContent').style.display = 'none';
+        document.getElementById('incidenciasContent').style.display = 'grid';
+    })
+
+
  $(document).ready(function(){
     $("#crearSW").click(function(){ // Utiliza el ID del botón
         // Definir la variable global con la URL de las subcategorías
@@ -281,6 +298,7 @@
               $("#crearHW").click(function(){ // Utiliza el ID del botón
                   // Definir la variable global con la URL de las subcategorías
                   var subcategoriasRoute = '{{ route("subcategorias", ["idCategoria" => 2]) }}';
+                  var incidenciaNueva = '{{ route("crear.incidencia") }}';
   
                   // Obtener subcategorías con ID de categoría 1 desde la base de datos
                   $.ajax({
@@ -307,9 +325,11 @@
                                   var comentario = $('#comentario').val();
                                   // Enviar los datos a tu controlador para procesar la creación de la incidencia
                                   $.ajax({
-                                      url: enviarIncidencia, // Reemplaza con la URL correcta
+                                      url: incidenciaNueva, // Reemplaza con la URL correcta
+                            
                                       method: 'POST',
                                       data: {
+                                        _token: '{{ csrf_token() }}', // Agregar el token CSRF
                                           subcategoriaId: subcategoriaId,
                                           comentario: comentario
                                       },

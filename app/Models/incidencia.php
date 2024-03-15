@@ -42,4 +42,23 @@ class Incidencia extends Model
     {
         return $this->belongsTo(Subcategoria::class, 'ID_subcategoria');
     }
+
+    // Método de acceso para obtener el nombre del técnico
+    public function getNombreTecnicoAttribute()
+    {
+        return $this->tecnico ? $this->tecnico->name : null;
+    }
+
+    // Método de acceso para obtener el estado
+    public function getEstadoAttribute()
+    {
+        return ucfirst($this->attributes['Estado']); // Devolver el estado con la primera letra en mayúscula
+    }
+
+    // Método de acceso para obtener el comentario del técnico
+    public function getComentarioTecnicoAttribute()
+    {
+        return $this->attributes['Comentario_Tecnico'] ?? 'N/A'; // Devolver 'N/A' si el comentario no está definido
+    }
 }
+    

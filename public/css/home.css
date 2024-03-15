@@ -176,6 +176,15 @@ main {
   border-radius: 15px;
 }
 
+.content-section {
+  display: grid;
+  grid-template-rows: 100%;
+  background: #f6f7fb;
+  margin: 15px;
+  padding: 20px;
+  border-radius: 15px;
+}
+
 /* ACTIVITIES */
 
 .activities h1 {
