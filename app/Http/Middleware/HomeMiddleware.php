@@ -12,6 +12,8 @@ class HomeMiddleware
     {
         // Obtener el valor de 'rolUser' de la sesión
         $rolUser = session('rolUser');
+        $user = session('usuario');
+        //    dd($user->Sede);
 
         // Comprobar si el usuario tiene el rol de administrador
         if ($rolUser && $rolUser === 'tecnico') {

@@ -42,11 +42,12 @@ class AuthController extends Controller
 	
 	    // Si el usuario existe lo logamos y lo llevamos a la vista de "logados" con un mensaje
 	    if (Auth::attempt($credentials)) {
-	        // return view('home');
 
 			$user = Auth::user();
 
 			Session::put('rolUser', $user->Rol);
+			Session::put('usuario', $user);
+
 
 			// Verificamos el rol del usuario y redirigimos a la vista correspondiente
 			if ($user->Rol == 'admin') {

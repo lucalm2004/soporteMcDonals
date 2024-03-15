@@ -21,9 +21,6 @@ Route::get('/', [AuthController::class, 'index'])->name('home');
 Route::post('/home', [AuthController::class, 'login'])->name('login');
 
 // Rutas protegidas
-// Route::middleware('checkRole')->group(function () {
-//     Route::view('home', 'home');
-// });
 
 Route::middleware(HomeMiddleware::class)->group(function () {
     Route::view('home', 'home');
