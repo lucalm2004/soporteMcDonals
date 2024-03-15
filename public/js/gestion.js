@@ -11,7 +11,35 @@ document.addEventListener("DOMContentLoaded", function () {
 
     listarIncidencias('');
     selectTecnicos();
+
+    document.getElementById('usuario_tecnico').addEventListener('change', function () {
+        updateFilter();
+    })
+
+    document.getElementById('resueltas').addEventListener('click', function () {
+        var eye = document.getElementById('eye').className;
+
+        if (eye == 'fa fa-eye') {
+            document.getElementById('eye').className = 'fa fa-eye-slash'
+            document.getElementById('resueltas').className = 'buttonNoDisplay'
+            updateFilter();
+        } else {
+            document.getElementById('eye').className = 'fa fa-eye'
+            document.getElementById('resueltas').className = 'buttonDisplay'
+            updateFilter('ocultar');
+        }
+    })
 })
+
+function updateFilter(resolved) {
+    var tecnico = document.getElementById('usuario_tecnico').value;
+
+    if (resolved) {
+        listarIncidencias(tecnico, resolved);
+    } else {
+        listarIncidencias(tecnico);
+    }
+}
 
 function selectTecnicos() {
     var selectContainer = document.getElementById('usuario_tecnico');
@@ -26,17 +54,17 @@ function selectTecnicos() {
     ajax.open('POST', '/select');
     ajax.onload = function () {
         var options = "";
-        var select = "";
-
-        console.log(ajax.responseText);
-
         if (ajax.status == 200) {
             var json = JSON.parse(ajax.responseText);
+
+            options += "<option value=''></option>";
+
             json.forEach(function (item) {
-                // options += "<option";
-                // options += item.id
+                options += "<option value='" + item.ID_Usuario + "'>"
+                options += item.Nom_Usuario + "</option>"
             })
-            selectContainer.innerHTML = select;
+
+            selectContainer.innerHTML = options;
         } else {
             resultado.innerText = "Error";
         }
@@ -44,7 +72,7 @@ function selectTecnicos() {
     ajax.send(formdata);
 }
 
-function listarIncidencias() {
+function listarIncidencias(tecnico, resolved) {
     var resultado = document.getElementById('resultado');
 
     var formdata = new FormData();
@@ -53,17 +81,23 @@ function listarIncidencias() {
 
     formdata.append('_token', csrfToken);
 
-    // formdata.append('busqueda', valor);
+    if (!resolved) {
+        formdata.append('resolved', resolved);
+    }
+
+    formdata.append('tecnico', tecnico);
 
     var ajax = new XMLHttpRequest();
     ajax.open('POST', '/listar');
     ajax.onload = function () {
         var str = "";
         if (ajax.status == 200) {
+
+            console.log(ajax.responseText)
+
             var json = JSON.parse(ajax.responseText);
             var tabla = "";
             json.forEach(function (item) {
-
                 str = "<tr><td>" + item.id + "</td>";
                 str += "<td>" + item.Sede + "</td>";
                 str += "<td>" + item.Cliente + "</td>";

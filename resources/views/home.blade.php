@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <meta name="csrf-token" content="{{ csrf_token() }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="{{ asset('css/home.css') }}">
 
     <title>Document</title>
@@ -286,10 +287,11 @@
                 <div class="table_container">
                     <h1>Incidencias de equipo</h1><br>
                     <div class='filtros'>
-                        <label for="usuario_tecnico">Tecnico: </label><select id="usuario_tecnico">
-
-                        </select>
+                        <label for="usuario_tecnico">Tecnico: </label><select id="usuario_tecnico"></select>
+                        <button id="resueltas" class="buttonNoDisplay">Incidencias Resueltas <i id="eye"
+                                class="fa fa-eye-slash"></i></button>
                     </div>
+                    <br>
                     <table class="table">
                         <thead class="table_head">
                             <tr>

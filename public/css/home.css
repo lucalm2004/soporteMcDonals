@@ -952,7 +952,7 @@ main {
 }
 
 .table_head {
-  background-color: #414656;
+  background-color: rgb(73, 57, 113);
   color: #F6F7FB;
 }
 
@@ -972,4 +972,27 @@ main {
 .content_crud {
   grid-template-columns: 100% !important;
   height: 95vh;
+}
+
+.filtros select {
+  border-radius: 15px;
+  border-color: rgb(73, 57, 113);
+}
+
+.buttonDisplay {
+  border: none;
+  background-color: rgb(73, 57, 113);
+  color: #F6F7FB;
+  padding: 0.1rem 1rem;
+  border-radius: 15px;
+  border: 0.1px solid rgb(73, 57, 113);
+}
+
+.buttonNoDisplay {
+  border: none;
+  background-color: #F6F7FB;
+  color: rgb(73, 57, 113);
+  padding: 0.1rem 1rem;
+  border-radius: 15px;
+  border: 0.1px dotted rgb(73, 57, 113);
 }
