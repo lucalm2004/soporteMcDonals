@@ -48,10 +48,13 @@
             <td>{{ $incidencia->Estado }}</td>
                         <!-- Agregar imagen cerrar.png y evento de clic para mostrar Sweet Alert -->
                         <td>
-                            @if($incidencia->Estado !== 'Cerrada')
+                            @if($incidencia->Estado === 'Cerrada')
+                                <img src="{{ asset('img/cerrar.png') }}" class="cerrar-incidencia" alt="Cerrar">
+                            @else
                                 <img src="{{ asset('img/tick.png') }}" class="cerrar-incidencia" data-id="{{ $incidencia->id }}" alt="Cerrar">
                             @endif
                         </td>
+                        
             <td>{{ $incidencia->Comentario_Tecnico }}</td>
             <td>{{ $incidencia->updated_at }}</td>
 

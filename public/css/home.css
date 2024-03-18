@@ -1039,7 +1039,7 @@ main {
   }
 
   .cerrar-incidencia {
-    width: 20px; /* Tamaño deseado */
+    width: 30px; /* Tamaño deseado */
     height: auto; /* Mantener la proporción */
     cursor: pointer; /* Cambiar el cursor al pasar por encima */
     display: block; /* Asegurar que la imagen se muestre como un bloque */
