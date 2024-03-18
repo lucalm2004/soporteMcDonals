@@ -1,9 +1,9 @@
 <table class="incidencias-table">
-    <caption>Tus incidencias</caption>
+    <caption>MIS INCIDENCIAS</caption>
     <thead>
         <tr>
-            <th colspan="6">
-                <label for="checkboxAsignados">Mostrar solo los no resueltos</label>
+            <th colspan="7">
+                <label for="checkboxAsignados">Ocultar incidencias cerradas</label>
                 <input type="checkbox" id="checkboxAsignados">
             </th>
         </tr>
@@ -14,13 +14,14 @@
             <th>Estado
                 <select id="estadoFiltro">
                     <option value="">Todos</option>
-                    <option value="sin_asignar">Pendiente</option>
+                    <option value="Sin_asignar">Pendiente</option>
                     <option value="Asignada">Asignada</option>
-                    <option value="En trabajo">En trabajo</option>
+                    <option value="En_trabajo">En trabajo</option>
                     <option value="Resuelta">Resuelta</option>
                     <option value="Cerrada">Cerrada</option>
                 </select>
             </th>
+            <th>Modificar Estado</th>
             <th>Comentario del Técnico</th>
             <th>Última Actualización</th>
         </tr>
@@ -45,8 +46,15 @@
                 @endif
             </td>
             <td>{{ $incidencia->Estado }}</td>
+                        <!-- Agregar imagen cerrar.png y evento de clic para mostrar Sweet Alert -->
+                        <td>
+                            @if($incidencia->Estado !== 'Cerrada')
+                                <img src="{{ asset('img/tick.png') }}" class="cerrar-incidencia" data-id="{{ $incidencia->id }}" alt="Cerrar">
+                            @endif
+                        </td>
             <td>{{ $incidencia->Comentario_Tecnico }}</td>
             <td>{{ $incidencia->updated_at }}</td>
+
         </tr>
         @endforeach
     </tbody>
@@ -64,7 +72,7 @@
             $('#tablaIncidencias tr.incidencia').each(function() {
                 var estado = $(this).find('td:nth-child(4)').text();
                 
-                if (mostrarAsignados && estado.toLowerCase() === 'resuelta') {
+                if (mostrarAsignados && estado.toLowerCase() === 'cerrada') {
                     $(this).hide();
                 } else {
                     $(this).show();
@@ -108,6 +116,35 @@
                     $(this).show();
                 } else {
                     $(this).hide();
+                }
+            });
+        });
+
+        // Agregar evento de clic a la imagen cerrar.png para mostrar Sweet Alert
+        $(document).on('click', '.cerrar-incidencia', function() {
+            var idIncidencia = $(this).data('id');
+
+            // Mostrar Sweet Alert para confirmar si se desea finalizar la incidencia
+            Swal.fire({
+                title: '¿Desea finalizar esta incidencia?',
+                text: 'Esta acción no se puede deshacer.',
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Sí, finalizar',
+                cancelButtonText: 'Cancelar'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    // Aquí puedes agregar la lógica para finalizar la incidencia,
+                    // por ejemplo, haciendo una solicitud AJAX al servidor.
+                    // Luego, puedes recargar la página o realizar otras acciones según tu necesidad.
+                    // Aquí solo mostraremos un mensaje de éxito como ejemplo:
+                    Swal.fire(
+                        'Incidencia Finalizada',
+                        'La incidencia ha sido finalizada correctamente.',
+                        'success'
+                    );
                 }
             });
         });
