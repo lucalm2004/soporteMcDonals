@@ -26,6 +26,24 @@ class gestorController extends Controller
             $query->where('Estado', '=', 'resuelta');
         }
 
+        if ($request->input('orderFe') && $request->input('orderPr')) {
+            $orderFe = $request->input('orderFe');
+            $orderPr = $request->input('orderPr');
+
+            if ($orderFe == 'FechaASC') {
+                $query->orderby('Data_Alta', 'ASC');
+            }
+
+            if ($orderPr == 'PrioASC') {
+                $query->orderby('Prioridad', 'ASC');
+            }
+        } else {
+
+            $query->orderBy('Data_Alta', 'DESC');
+            $query->orderby('Prioridad', 'ASC');
+        }
+
+
         $resultado = $query->get();
 
         return response()->json($resultado);

@@ -961,6 +961,10 @@ main {
   padding: 0.2rem;
 }
 
+.table_head button {
+  padding: 0rem 0.1rem !important;
+}
+
 .table_body {
   border-radius: 15px;
 }

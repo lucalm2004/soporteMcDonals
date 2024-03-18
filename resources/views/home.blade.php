@@ -299,9 +299,11 @@
                                 <th>Sede</th>
                                 <th>Cliente</th>
                                 <th>Técnico</th>
-                                <th>Fecha Alta</th>
+                                <th>Fecha Alta <button id="orderFec" class="buttonNoDisplay"><i id="arrow-fec"
+                                            class="fa fa-arrow-down"></i></button></th>
                                 <th>Fecha Resolución</th>
-                                <th>Prioridad</th>
+                                <th>Prioridad <button id="orderPri" class="buttonNoDisplay"><i id="arrow-pri"
+                                            class="fa fa-arrow-up"></i></button></th>
                                 <th>Estado</th>
                                 <th>Categoria</th>
                                 <th>Subcategoria</th>
