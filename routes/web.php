@@ -27,3 +27,5 @@ use App\Http\Controllers\IncidenciaCrudController;
 Route::get('/incidencias', [IncidenciaCrudController::class, 'index'])->name('incidencias.index');
 
 
+
+

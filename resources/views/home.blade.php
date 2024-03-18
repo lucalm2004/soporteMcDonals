@@ -272,8 +272,11 @@ document.getElementById('homepage').addEventListener('click', function () {
                                 comentario: comentario
                             },
                             success: function(response) {
-                                Swal.fire('¡Incidencia Creada!', '', 'success');
-                            },
+                              Swal.fire('¡Incidencia Creada!', '', 'success').then(() => {
+                                  location.reload(); // Recargar la página después de cerrar el SweetAlert
+                              });
+                          },
+
                             error: function(xhr, status, error) {
                                 Swal.fire('Error', 'Hubo un problema al crear la incidencia.', 'error');
                             }
