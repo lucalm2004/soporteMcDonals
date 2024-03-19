@@ -2,6 +2,9 @@
 
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\gestorController;
+use App\Http\Controllers\SubCategoriasController;
+
+
 use Illuminate\Support\Facades\Route;
 use App\Http\Middleware\HomeMiddleware;
 
@@ -17,6 +20,7 @@ use App\Http\Middleware\HomeMiddleware;
 |
 */
 
+Route::get('/sub', [SubCategoriasController::class, 'index'])->name('sub');
 Route::get('/', [AuthController::class, 'index'])->name('home');
 Route::post('/home', [AuthController::class, 'login'])->name('login');
 
@@ -67,3 +71,6 @@ Route::get('/incidencias', [IncidenciaCrudController::class, 'index'])->name('in
 Route::post('/listar', [gestorController::class, 'index'])->name('index');
 
 Route::post('/select', [gestorController::class, 'select'])->name('select');
+
+
+
