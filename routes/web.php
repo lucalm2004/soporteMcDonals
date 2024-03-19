@@ -60,3 +60,6 @@ Route::post('/crear-incidencia', [IncidenciaController::class, 'crearIncidencia'
 use App\Http\Controllers\IncidenciaCrudController;
 
 Route::get('/incidencias', [IncidenciaCrudController::class, 'index'])->name('incidencias.index');
+
+Route::post('/actualizar_estado_incidencia', [IncidenciaController::class, 'actualizarEstado'])->name('actualizar.estado.incidencia');
+

@@ -29,4 +29,14 @@ class IncidenciaController extends Controller
         // Devolver una respuesta
         return response()->json(['message' => 'Incidencia creada exitosamente']);
     }
+
+    public function actualizarEstado(Request $request)
+    {
+        $incidencia = Incidencia::findOrFail($request->id);
+        $incidencia->Estado = 'cerrada';
+        $incidencia->save();    
+
+        return response()->json(['success' => true]);
+    }
+    
 }
