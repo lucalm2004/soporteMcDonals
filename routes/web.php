@@ -16,7 +16,6 @@ use App\Http\Middleware\HomeMiddleware;
 |
 */
 
-// Route::get('/', function () {return view('home');});
 Route::get('/', [AuthController::class, 'index'])->name('home');
 Route::post('/home', [AuthController::class, 'login'])->name('login');
 
@@ -32,10 +31,7 @@ Route::middleware('auth')->get('/user', function () {
 
     // Mostramos los datos del usuario
     return $user;
-});
-
-   
-
+}); 
     Route::middleware('admin')->group(function () {
         Route::view('home_admin', 'home_admin');
     });
@@ -51,3 +47,16 @@ Route::middleware('auth')->get('/user', function () {
     Route::middleware('cliente')->group(function () {
         Route::view('home_cliente', 'home_cliente');
     });
+
+    // Cliente
+    use App\Http\Controllers\SubcategoriaController;
+
+    Route::get('/subcategorias/{idCategoria}', [SubcategoriaController::class, 'obtenerSubcategorias'])->name("subcategorias");
+
+use App\Http\Controllers\IncidenciaController;
+
+Route::post('/crear-incidencia', [IncidenciaController::class, 'crearIncidencia'])->name('crear.incidencia');
+
+use App\Http\Controllers\IncidenciaCrudController;
+
+Route::get('/incidencias', [IncidenciaCrudController::class, 'index'])->name('incidencias.index');

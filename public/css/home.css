@@ -891,3 +891,135 @@ main {
         display: none;
     }
 }
+
+
+/* CSS TABLA */
+
+
+/* En tu archivo CSS */
+
+.incidencias-table {
+    width: 100%;
+    height: 725px;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+    table-layout: fixed;
+    /* Tamaño fijo para la tabla */
+}
+
+.incidencias-table caption {
+    font-size: 1.5em;
+    /* Tamaño de fuente más grande */
+    font-weight: bold;
+    /* Texto en negrita */
+    padding: 10px;
+    /* Espaciado interno */
+    background-color: #f2f2f2;
+    /* Fondo gris claro */
+    color: #333;
+    /* Color de texto oscuro */
+    text-align: center;
+    /* Centrar el texto */
+}
+
+.incidencias-table th,
+.incidencias-table td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: center;
+    /* Centrar el contenido */
+    overflow: hidden;
+    /* Ocultar el contenido que sobresale */
+    white-space: nowrap;
+    /* Evitar el salto de línea en el texto largo */
+}
+
+.incidencias-table th {
+    background-color: #f2f2f2;
+    font-weight: bold;
+}
+
+.incidencias-table tr:nth-child(even) {
+    background-color: #f2f2f2;
+}
+
+.incidencias-table tr:hover {
+    background-color: #ddd;
+}
+
+
+/* Agrega más estilos según tus necesidades */
+
+
+/* Agrega estilos para la flecha */
+
+#arrowIcon {
+    width: 30px;
+    height: 30px;
+    margin-left: 5px;
+    margin-top: 8px;
+    cursor: pointer;
+    /* Agregar un cursor de apuntador */
+}
+
+
+/* Estilos para el select */
+
+#estadoFiltro {
+    padding: 8px 12px;
+    /* Espaciado interno */
+    font-size: 14px;
+    /* Tamaño de fuente */
+    border: 1px solid #ccc;
+    /* Borde */
+    border-radius: 4px;
+    /* Bordes redondeados */
+    background-color: #fff;
+    /* Fondo blanco */
+    appearance: none;
+    /* Quitar la apariencia nativa del navegador */
+    -webkit-appearance: none;
+    /* Para navegadores basados en WebKit como Chrome y Safari */
+    -moz-appearance: none;
+    /* Para navegadores basados en Gecko como Firefox */
+    cursor: pointer;
+    /* Cursor apuntador */
+    font-family: "Nunito", sans-serif;
+    /* Fuente Nunito */
+    margin-left: 5px;
+}
+
+
+/* Estilos para las opciones del select */
+
+#estadoFiltro option {
+    background-color: #fff;
+    /* Fondo blanco */
+    color: #333;
+    /* Color del texto */
+}
+
+
+/* Estilo cuando el select está enfocado */
+
+#estadoFiltro:focus {
+    outline: none;
+    /* Quitar el contorno al enfocar */
+    border-color: #66afe9;
+    /* Cambiar color del borde al enfocar */
+    box-shadow: 0 0 5px rgba(102, 175, 233, 0.5);
+    /* Sombra al enfocar */
+}
+
+.cerrar-incidencia {
+    width: 30px;
+    /* Tamaño deseado */
+    height: auto;
+    /* Mantener la proporción */
+    cursor: pointer;
+    /* Cambiar el cursor al pasar por encima */
+    display: block;
+    /* Asegurar que la imagen se muestre como un bloque */
+    margin: 0 auto;
+    /* Centrar horizontalmente */
+}
