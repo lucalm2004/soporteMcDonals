@@ -218,7 +218,7 @@
                         <i class="fa fa-bell nav-icon"></i>
                         <i class="fa fa-message nav-icon"></i>
                     </div>
-                    <h4>Kelsey Miller</h4>
+                    <h4><?php $user = session('usuario'); echo $user->Nom_Usuario?></h4>
                     <img src="https://github.com/ecemgo/mini-samples-great-tricks/assets/13468728/40b7cce2-c289-4954-9be0-938479832a9c"
                         alt="user" />
                 </div>
@@ -232,9 +232,9 @@
                             </div>
                         </div>
                         <div class="calories-content">
-                            <p><span>Today:</span> 400</p>
-                            <p><span>This Week:</span> 3500</p>
-                            <p><span>This Month:</span> 14000</p>
+                            <p><span>Admin's:</span> 400</p>
+                            <p><span>Gestores:</span> 3500</p>
+                            <p><span>Clientes:</span> 14000</p>
                         </div>
                     </div>
                 </div>
