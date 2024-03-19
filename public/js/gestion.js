@@ -2,106 +2,90 @@ document.addEventListener("DOMContentLoaded", function () {
     document.getElementById('estadisticas_ges_button').addEventListener('click', function () {
         document.getElementById('incidencias_ges').style.display = 'none';
         document.getElementById('estadisticas_ges').style.display = 'grid';
-    })
+    });
 
     document.getElementById('incidencias_ges_button').addEventListener('click', function () {
         document.getElementById('estadisticas_ges').style.display = 'none';
         document.getElementById('incidencias_ges').style.display = 'grid';
-    })
+    });
 
     listarIncidencias('');
     selectTecnicos();
 
     document.getElementById('usuario_tecnico').addEventListener('change', function () {
         updateFilter('tecnico');
-    })
+    });
 
     document.getElementById('resueltas').addEventListener('click', function () {
         var eye = document.getElementById('eye').className;
 
         if (eye == 'fa fa-eye') {
-            document.getElementById('eye').className = 'fa fa-eye-slash'
-            document.getElementById('resueltas').className = 'buttonNoDisplay'
+            document.getElementById('eye').className = 'fa fa-eye-slash';
+            document.getElementById('resueltas').className = 'buttonNoDisplay';
         } else {
-            document.getElementById('eye').className = 'fa fa-eye'
-            document.getElementById('resueltas').className = 'buttonDisplay'
+            document.getElementById('eye').className = 'fa fa-eye';
+            document.getElementById('resueltas').className = 'buttonDisplay';
         }
 
         updateFilter('Resueltas');
-    })
+    });
 
     document.getElementById('orderFec').addEventListener('click', function () {
         var arrowFec = document.getElementById('arrow-fec').className;
 
         if (arrowFec == 'fa fa-arrow-up') {
-            document.getElementById('arrow-fec').className = 'fa fa-arrow-down'
+            document.getElementById('arrow-fec').className = 'fa fa-arrow-down';
         } else {
-            document.getElementById('arrow-fec').className = 'fa fa-arrow-up'
+            document.getElementById('arrow-fec').className = 'fa fa-arrow-up';
         }
 
-        updateFilter('Fecha')
-    })
+        updateFilter('Fecha');
+    });
 
     document.getElementById('orderPri').addEventListener('click', function () {
         var arrowPri = document.getElementById('arrow-pri').className;
 
         if (arrowPri == 'fa fa-arrow-up') {
-            document.getElementById('arrow-pri').className = 'fa fa-arrow-down'
+            document.getElementById('arrow-pri').className = 'fa fa-arrow-down';
         } else {
-            document.getElementById('arrow-pri').className = 'fa fa-arrow-up'
+            document.getElementById('arrow-pri').className = 'fa fa-arrow-up';
         }
 
-        updateFilter('Prioridad')
-    })
+        updateFilter('Prioridad');
+    });
 
-})
+});
 
-function updateFilter(orden) {
+function updateFilter(order) {
     var tecnico = document.getElementById('usuario_tecnico').value;
 
+    var eye = document.getElementById('eye').className;
 
-    if (orden = tecnico) {
-        var eye = document.getElementById('eye').className;
-
-        if (eye == 'fa fa-eye') {
-            var resolved = 'ocultar';
-        } else {
-            var resolved = '';
-        }
+    if (eye == 'fa fa-eye') {
+        var resolved = 'mostrar';
+    } else {
+        var resolved = null;
     }
-
-    // if (orden == 'Fecha') {
-
-    // } else if (orden == 'Prioridad') {
-
-    // }
 
     var arrowFec = document.getElementById('arrow-fec').className;
     var arrowPri = document.getElementById('arrow-pri').className;
 
-    if (arrowPri == 'fa fa-arrow-up') {
-        var orderPr = 'PrioASC'
-    } else {
-        var orderPr = 'PrioDESC'
+    var orden = {};
+    if (order == 'Prioridad') {
+        orden['Prioridad'] = (arrowPri == 'fa fa-arrow-up') ? 'ASC' : 'DESC';
+        orden['Data_Alta'] = (arrowFec == 'fa fa-arrow-up') ? 'ASC' : 'DESC';
+    } else if (order == 'Fecha') {
+        orden['Data_Alta'] = (arrowFec == 'fa fa-arrow-up') ? 'ASC' : 'DESC';
+        orden['Prioridad'] = (arrowPri == 'fa fa-arrow-up') ? 'ASC' : 'DESC';
     }
 
-    if (arrowFec == 'fa fa-arrow-up') {
-        var orderFe = 'FechaASC'
-    } else {
-        var orderFe = 'FechaDESC'
-    }
-
-
-    listarIncidencias(tecnico, resolved, orderFe, orderPr);
+    listarIncidencias(tecnico, resolved, orden);
 }
 
 function selectTecnicos() {
     var selectContainer = document.getElementById('usuario_tecnico');
-
     var formdata = new FormData();
-
     var csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
-
     formdata.append('_token', csrfToken);
 
     var ajax = new XMLHttpRequest();
@@ -110,37 +94,39 @@ function selectTecnicos() {
         var options = "";
         if (ajax.status == 200) {
             var json = JSON.parse(ajax.responseText);
-
             options += "<option value=''>Todos</option>";
 
             json.forEach(function (item) {
-                options += "<option value='" + item.ID_Usuario + "'>"
-                options += item.Nom_Usuario + "</option>"
-            })
+                options += "<option value='" + item.ID_Usuario + "'>";
+                options += item.Nom_Usuario + "</option>";
+            });
 
             selectContainer.innerHTML = options;
         } else {
             resultado.innerText = "Error";
         }
-    }
+    };
     ajax.send(formdata);
 }
 
-function listarIncidencias(tecnico, resolved,) {
+function listarIncidencias(tecnico, resolved, orden) {
     var resultado = document.getElementById('resultado');
-
     var formdata = new FormData();
-
     var csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
-
     formdata.append('_token', csrfToken);
 
-    if (!resolved) {
+    if (resolved) {
         formdata.append('resolved', resolved);
     }
 
-    if (!resolved) {
-        formdata.append('resolved', resolved);
+    // Append each key-value pair of the 'orden' object separately
+    if (orden) {
+        for (var key in orden) {
+            if (orden.hasOwnProperty(key)) {
+                formdata.append('orden[' + key + ']', orden[key]);
+                console.log('orden[' + key + ']', orden[key]);
+            }
+        }
     }
 
     formdata.append('tecnico', tecnico);
@@ -150,16 +136,13 @@ function listarIncidencias(tecnico, resolved,) {
     ajax.onload = function () {
         var str = "";
         if (ajax.status == 200) {
-
-            console.log(ajax.responseText)
-
             var json = JSON.parse(ajax.responseText);
             var tabla = "";
             json.forEach(function (item) {
                 str = "<tr><td>" + item.id + "</td>";
                 str += "<td>" + item.Sede + "</td>";
                 str += "<td>" + item.Cliente + "</td>";
-                str += "<td>"
+                str += "<td>";
                 if (item.Tecnico === null) {
                     str += 'Sin asignar';
                 } else {
@@ -167,27 +150,29 @@ function listarIncidencias(tecnico, resolved,) {
                 }
                 str += "</td>";
                 str += "<td>" + item.Data_Alta + "</td>";
-                str += "<td>"
+                str += "<td>";
                 if (item.Data_Resolucion === null) {
                     str += 'Sin resolver';
                 } else {
                     str += item.Data_Resolucion;
                 }
-                str += "</td>"; str += "<td>" + item.Prioridad + "</td>";
+                str += "</td>";
+                str += "<td>" + item.Prioridad + "</td>";
                 str += "<td>" + item.Estado + "</td>";
                 str += "<td>" + item.Categoria + "</td>";
                 str += "<td>" + item.Subcategoria + "</td>";
                 str += "</td>";
                 str += "</tr>";
                 tabla += str;
-            })
+            });
             resultado.innerHTML = tabla;
         } else {
             resultado.innerText = "Error";
         }
-    }
+    };
     ajax.send(formdata);
 }
+
 
 
 

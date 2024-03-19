@@ -15,20 +15,20 @@ class incidenciaSeeder extends Seeder
     public function run(): void
     {
         DB::table('incidencias')->insert([
-            'ID_Cliente' => '1',
+            'ID_Cliente' => '2',
             'Data_Alta' =>  new \DateTime(),
             'Estado' => 'sin_asignar',
             'Prioridad' => 'media',
-            'Comentario_Cliente' => 'Pasa algo, arreglen',
+            'Comentario_Cliente' => 'PAM PAM',
             'ID_subcategoria' => '2',
         ]);
 
         DB::table('incidencias')->insert([
-            'ID_Cliente' => '1',
+            'ID_Cliente' => '9',
             'Data_Alta' =>  new \DateTime(),
             'Estado' => 'sin_asignar',
-            'Prioridad' => 'alta',
-            'Comentario_Cliente' => 'Revisar esto',
+            'Prioridad' => 'baja',
+            'Comentario_Cliente' => 'Algo algo',
             'ID_subcategoria' => '4',
         ]);
     }

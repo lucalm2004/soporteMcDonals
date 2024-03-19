@@ -210,7 +210,11 @@
                         <i class="fa fa-bell nav-icon"></i>
                         <i class="fa fa-message nav-icon"></i>
                     </div>
-                    <h4>Kelsey Miller</h4>
+                    <h4>
+                        <h4><?php // $user = session('usuario');
+                        // echo $user->Nom_Usuario;
+                        ?></h4>
+                    </h4>
                     <img src="" alt="user" />
                 </div>
 
