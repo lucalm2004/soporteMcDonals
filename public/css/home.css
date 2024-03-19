@@ -1028,3 +1028,64 @@ main {
     margin: 0 auto;
     /* Centrar horizontalmente */
 }
+
+
+/* Gestor CSS */
+
+.table_container {
+    height: 100%;
+}
+
+.table {
+    width: 100%;
+}
+
+.table_head {
+    background-color: rgb(73, 57, 113);
+    color: #F6F7FB;
+}
+
+.table_head th {
+    border-radius: 15px;
+    padding: 0.2rem;
+}
+
+.table_head button {
+    padding: 0rem 0.1rem !important;
+}
+
+.table_body {
+    border-radius: 15px;
+}
+
+.table_body td {
+    text-align: center;
+}
+
+.content_crud {
+    grid-template-columns: 100% !important;
+    height: 95vh;
+}
+
+.filtros select {
+    border-radius: 15px;
+    border-color: rgb(73, 57, 113);
+}
+
+.buttonDisplay {
+    border: none;
+    background-color: rgb(73, 57, 113);
+    color: #F6F7FB;
+    padding: 0.1rem 1rem;
+    border-radius: 15px;
+    border: 0.1px solid rgb(73, 57, 113);
+}
+
+.buttonNoDisplay {
+    border: none;
+    background-color: #F6F7FB;
+    color: rgb(73, 57, 113);
+    padding: 0.1rem 1rem;
+    border-radius: 15px;
+    border: 0.1px dotted rgb(73, 57, 113);
+}

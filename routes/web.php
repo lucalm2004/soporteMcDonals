@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\gestorController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Middleware\HomeMiddleware;
 
@@ -60,3 +61,9 @@ Route::post('/crear-incidencia', [IncidenciaController::class, 'crearIncidencia'
 use App\Http\Controllers\IncidenciaCrudController;
 
 Route::get('/incidencias', [IncidenciaCrudController::class, 'index'])->name('incidencias.index');
+
+// Gestor
+
+Route::post('/listar', [gestorController::class, 'index'])->name('index');
+
+Route::post('/select', [gestorController::class, 'select'])->name('select');
