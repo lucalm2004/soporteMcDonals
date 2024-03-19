@@ -54,54 +54,48 @@
                     <h1>Usuarios</h1>
                     <div class="activity-container">
                         <div class="image-container img-one">
-                            <img src="https://github.com/ecemgo/mini-samples-great-tricks/assets/13468728/467cf682-03fb-4fae-b129-5d4f5db304dd"
-                                alt="tennis" />
-                            <div class="overlay">
-                                <h3>Tennis</h3>
-                            </div>
+                          <img src="https://www.ejeprime.com/files//fotos/ciudades/22@-recurso-728.jpg" alt="tennis" />
+                          <div class="overlay">
+                            <h3>Barcelona</h3>
+                          </div>
                         </div>
-
+          
                         <div class="image-container img-two">
-                            <img src="https://github.com/ecemgo/mini-samples-great-tricks/assets/13468728/3bab6a71-c842-4a50-9fed-b4ce650cb478"
-                                alt="hiking" />
-                            <div class="overlay">
-                                <h3>Hiking</h3>
-                            </div>
+                          <img src="https://mitreworkspace.com/wp-content/uploads/2017/04/alquiler-oficinas-barcelona-sarria-santgervasi-workspace-business-center-centro-negocios-2-1.jpg.webp" alt="hiking" />
+                          <div class="overlay">
+                            <h3>Oficinas Agbar</h3>
+                          </div>
                         </div>
-
+          
                         <div class="image-container img-three">
-                            <img src="https://github.com/ecemgo/mini-samples-great-tricks/assets/13468728/c8e88356-8df5-4ac5-9e1f-5b9e99685021"
-                                alt="running" />
-                            <div class="overlay">
-                                <h3>Running</h3>
-                            </div>
+                          <img src="https://www.roomdiseno.com/wp-content/uploads/2020/07/Cube_Berlin-3XN-roomdiseno16-750x500.jpg" alt="running" />
+                          <div class="overlay">
+                            <h3>Berlin</h3>
+                          </div>
                         </div>
-
+          
                         <div class="image-container img-four">
-                            <img src="https://github.com/ecemgo/mini-samples-great-tricks/assets/13468728/69437d08-f203-4905-8cf5-05411cc28c19"
-                                alt="cycling" />
-                            <div class="overlay">
-                                <h3>Cycling</h3>
-                            </div>
+                          <img src="https://images.adsttc.com/media/images/61d6/c116/3e4b/31d9/0100/0020/medium_jpg/JWA30.jpg?1641464075" alt="cycling" />
+                          <div class="overlay">
+                            <h3>Oficinas Cube</h3>
+                          </div>
                         </div>
-
+          
                         <div class="image-container img-five">
-                            <img src="https://github.com/ecemgo/mini-samples-great-tricks/assets/13468728/e1a66078-1927-4828-b793-15c403d06411"
-                                alt="yoga" />
-                            <div class="overlay">
-                                <h3>Yoga</h3>
-                            </div>
+                          <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/19/Edif%C3%ADcio_Montreal_01.JPG/640px-Edif%C3%ADcio_Montreal_01.JPG" alt="yoga" />
+                          <div class="overlay">
+                            <h3>Montreal</h3>
+                          </div>
                         </div>
-
+          
                         <div class="image-container img-six">
-                            <img src="https://github.com/ecemgo/mini-samples-great-tricks/assets/13468728/7568e0ff-edb5-43dd-bff5-aed405fc32d9"
-                                alt="swimming" />
-                            <div class="overlay">
-                                <h3>Swimming</h3>
-                            </div>
+                          <img src="https://metspace.com/wp-content/uploads/2023/10/6291ee6e64be79cce51b0d7f_montreal_cowork-header.png" alt="swimming" />
+                          <div class="overlay">
+                            <h3>Oficina Montreal 21</h3>
+                          </div>
                         </div>
+                      </div>
                     </div>
-                </div>
 
                 <div class="left-bottom">
                     <div class="weekly-schedule">
@@ -214,10 +208,7 @@
 
             <div class="right-content">
                 <div class="user-info">
-                    <div class="icon-container">
-                        <i class="fa fa-bell nav-icon"></i>
-                        <i class="fa fa-message nav-icon"></i>
-                    </div>
+                   
                     <h4><?php $user = session('usuario'); echo $user->Nom_Usuario?></h4>
                     <img src="https://github.com/ecemgo/mini-samples-great-tricks/assets/13468728/40b7cce2-c289-4954-9be0-938479832a9c"
                         alt="user" />
@@ -226,15 +217,15 @@
                 <div class="active-calories">
                     <h1 style="align-self: flex-start">Total Usuarios</h1>
                     <div class="active-calories-container">
-                        <div class="box" style="--i: 85%">
+                        <div class="box" style="--i: <?php use App\Models\usuario; $countUsers = usuario::count(); echo $countUsers;?>%">
                             <div class="circle">
-                                <h2>85<small>%</small></h2>
+                                <h2><?php echo $countUsers;?><small>%</small></h2>
                             </div>
                         </div>
                         <div class="calories-content">
-                            <p><span>Admin's:</span> 400</p>
-                            <p><span>Gestores:</span> 3500</p>
-                            <p><span>Clientes:</span> 14000</p>
+                            <p><span>Admin's:</span> <?php  $countAdmins = usuario::where('Rol', 'admin')->count(); echo $countAdmins;?></p>
+                            <p><span>Gestores:</span> <?php $countGestores = usuario::where('Rol', 'gestor')->count(); echo $countGestores;?></p>
+                            <p><span>Clientes:</span> <?php $countClientes = usuario::where('Rol', 'cliente')->count(); echo $countClientes;?></p>
                         </div>
                     </div>
                 </div>
@@ -261,33 +252,27 @@
                 </div>
 
                 <div class="friends-activity">
-                    <h1>Friends Activity</h1>
+                    <h1>Valoraciones</h1>
                     <div class="card-container">
-                        <div class="card">
-                            <div class="card-user-info">
-                                <img src="https://github.com/ecemgo/mini-samples-great-tricks/assets/13468728/9290037d-a5b2-4f50-aea3-9f3f2b53b441"
-                                    alt="" />
-                                <h2>Jane</h2>
-                            </div>
-                            <img class="card-img"
-                                src="https://github.com/ecemgo/mini-samples-great-tricks/assets/13468728/bef54506-ea45-4e42-a1b6-23a48f61c5e8"
-                                alt="" />
-                            <p>We completed the 30-Day Running Streak Challenge!🏃‍♀️🎉</p>
+                      <div class="card">
+                        <div class="card-user-info">
+                          <img src="https://github.com/ecemgo/mini-samples-great-tricks/assets/13468728/9290037d-a5b2-4f50-aea3-9f3f2b53b441" alt="" />
+                          <h2>Jane</h2>
                         </div>
-
-                        <div class="card card-two">
-                            <div class="card-user-info">
-                                <img src="https://github.com/ecemgo/mini-samples-great-tricks/assets/13468728/42616ef2-ba96-49c7-80ea-c3cf1e2ecc89"
-                                    alt="" />
-                                <h2>Mike</h2>
-                            </div>
-                            <img class="card-img"
-                                src="https://github.com/ecemgo/mini-samples-great-tricks/assets/13468728/2dcc1b94-06c5-4c62-b886-53b9e433fd44"
-                                alt="" />
-                            <p>I just set a new record in cycling: 30 miles!💪</p>
+                        <img class="card-img" src="https://media.licdn.com/dms/image/C4E0DAQHtvwXaDzQZzA/learning-public-crop_288_512/0/1568667753141?e=2147483647&v=beta&t=5D1TuC49hG8L86aLexLgxT8vZK_37h1ZgRRRyCgTbgo" alt="" />
+                        <p>"Acceso remoto solucionado rapidamente. Gracias por vuestra ayuda tan útil y confiable."🎉</p>
+                      </div>
+        
+                      <div class="card card-two">
+                        <div class="card-user-info">
+                          <img src="https://github.com/ecemgo/mini-samples-great-tricks/assets/13468728/42616ef2-ba96-49c7-80ea-c3cf1e2ecc89" alt="" />
+                          <h2>Mike</h2>
                         </div>
+                        <img class="card-img" src="https://cdn.computerhoy.com/sites/navi.axelspringer.es/public/media/image/2021/03/oficina-casa-2251675.jpg" alt="" />
+                        <p>"La reparación del monitor fue rápida."💪</p>
+                      </div>
                     </div>
-                </div>
+                  </div>
             </div>
         </section>
     </main>
