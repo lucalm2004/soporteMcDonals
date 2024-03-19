@@ -63,7 +63,6 @@
         @endforeach
     </tbody>
 </table>
-<div class="pagination"></div>
 
 <script>
     $(document).ready(function() {

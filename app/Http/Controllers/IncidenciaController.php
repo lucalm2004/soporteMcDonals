@@ -16,7 +16,8 @@ class IncidenciaController extends Controller
 
         // Crear una nueva instancia del modelo Incidencia con los valores deseados
         $incidencia = new Incidencia();
-        $incidencia->ID_Cliente = 1; // ID del usuario = 1
+        $user = session('usuario');
+        $incidencia->ID_Cliente = $user-> ID_Usuario; // ID del usuario = 1
         $incidencia->Data_Alta = now(); // Fecha y hora actual
         $incidencia->Estado = 'sin_asignar';
         $incidencia->Comentario_Cliente = $request->comentario;
