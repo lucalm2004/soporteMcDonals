@@ -1,10 +1,10 @@
-document.addEventListener("DOMContentLoaded", function() {
-    document.getElementById('estadisticas_ges_button').addEventListener('click', function() {
+document.addEventListener("DOMContentLoaded", function () {
+    document.getElementById('estadisticas_ges_button').addEventListener('click', function () {
         document.getElementById('incidencias_ges').style.display = 'none';
         document.getElementById('estadisticas_ges').style.display = 'grid';
     });
 
-    document.getElementById('incidencias_ges_button').addEventListener('click', function() {
+    document.getElementById('incidencias_ges_button').addEventListener('click', function () {
         document.getElementById('estadisticas_ges').style.display = 'none';
         document.getElementById('incidencias_ges').style.display = 'grid';
     });
@@ -12,11 +12,11 @@ document.addEventListener("DOMContentLoaded", function() {
     listarIncidencias('');
     selectTecnicos();
 
-    document.getElementById('usuario_tecnico').addEventListener('change', function() {
+    document.getElementById('usuario_tecnico').addEventListener('change', function () {
         updateFilter('tecnico');
     });
 
-    document.getElementById('resueltas').addEventListener('click', function() {
+    document.getElementById('resueltas').addEventListener('click', function () {
         var eye = document.getElementById('eye').className;
 
         if (eye == 'fa fa-eye') {
@@ -30,7 +30,7 @@ document.addEventListener("DOMContentLoaded", function() {
         updateFilter('Resueltas');
     });
 
-    document.getElementById('orderFec').addEventListener('click', function() {
+    document.getElementById('orderFec').addEventListener('click', function () {
         var arrowFec = document.getElementById('arrow-fec').className;
 
         if (arrowFec == 'fa fa-arrow-up') {
@@ -42,7 +42,7 @@ document.addEventListener("DOMContentLoaded", function() {
         updateFilter('Fecha');
     });
 
-    document.getElementById('orderPri').addEventListener('click', function() {
+    document.getElementById('orderPri').addEventListener('click', function () {
         var arrowPri = document.getElementById('arrow-pri').className;
 
         if (arrowPri == 'fa fa-arrow-up') {
@@ -53,6 +53,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
         updateFilter('Prioridad');
     });
+
 
 });
 
@@ -84,19 +85,20 @@ function updateFilter(order) {
 
 function selectTecnicos() {
     var selectContainer = document.getElementById('usuario_tecnico');
+
     var formdata = new FormData();
     var csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
     formdata.append('_token', csrfToken);
 
     var ajax = new XMLHttpRequest();
     ajax.open('POST', '/select');
-    ajax.onload = function() {
+    ajax.onload = function () {
         var options = "";
         if (ajax.status == 200) {
             var json = JSON.parse(ajax.responseText);
             options += "<option value=''>Todos</option>";
 
-            json.forEach(function(item) {
+            json.forEach(function (item) {
                 options += "<option value='" + item.ID_Usuario + "'>";
                 options += item.Nom_Usuario + "</option>";
             });
@@ -133,12 +135,13 @@ function listarIncidencias(tecnico, resolved, orden) {
 
     var ajax = new XMLHttpRequest();
     ajax.open('POST', '/listar');
-    ajax.onload = function() {
+    ajax.onload = function () {
         var str = "";
         if (ajax.status == 200) {
+            clickTabla();
             var json = JSON.parse(ajax.responseText);
             var tabla = "";
-            json.forEach(function(item) {
+            json.forEach(function (item) {
                 str = "<tr><td>" + item.id + "</td>";
                 str += "<td>" + item.Sede + "</td>";
                 str += "<td>" + item.Cliente + "</td>";
@@ -173,8 +176,19 @@ function listarIncidencias(tecnico, resolved, orden) {
     ajax.send(formdata);
 }
 
+function clickTabla() {
+    var tbody = document.querySelector('#table_gest');
+    tbody.addEventListener('click', function (e) {
+        var tr = e.target.parentNode;
+        var firstTd = tr.querySelector('td');
 
+        openIncidencia(firstTd)
+    });
+}
 
+function openIncidencia(id) {
+
+}
 
 // function Editar(id) {
 //     var formdata = new FormData();

@@ -296,7 +296,7 @@
                                 class="fa fa-eye-slash"></i></button>
                     </div>
                     <br>
-                    <table class="table">
+                    <table id='table_gest' class="table">
                         <thead class="table_head">
                             <tr>
                                 <th>ID</th>
