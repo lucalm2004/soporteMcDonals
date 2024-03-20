@@ -32,27 +32,27 @@ Route::middleware('auth')->get('/user', function () {
 
     // Mostramos los datos del usuario
     return $user;
-}); 
-    Route::middleware('admin')->group(function () {
-        Route::view('home_admin', 'home_admin');
-    });
-    
-    Route::middleware('gestor')->group(function () {
-        Route::view('home_gestor', 'home_gestor');
-    });
-    
-    Route::middleware('tecnico')->group(function () {
-        Route::view('home_tecnico', 'home_tecnico');
-    });
-    
-    Route::middleware('cliente')->group(function () {
-        Route::view('home_cliente', 'home_cliente');
-    });
+});
+Route::middleware('admin')->group(function () {
+    Route::view('home_admin', 'home_admin');
+});
 
-    // Cliente
-    use App\Http\Controllers\SubcategoriaController;
+Route::middleware('gestor')->group(function () {
+    Route::view('home_gestor', 'home_gestor');
+});
 
-    Route::get('/subcategorias/{idCategoria}', [SubcategoriaController::class, 'obtenerSubcategorias'])->name("subcategorias");
+Route::middleware('tecnico')->group(function () {
+    Route::view('home_tecnico', 'home_tecnico');
+});
+
+Route::middleware('cliente')->group(function () {
+    Route::view('home_cliente', 'home_cliente');
+});
+
+// Cliente
+use App\Http\Controllers\SubcategoriaController;
+
+Route::get('/subcategorias/{idCategoria}', [SubcategoriaController::class, 'obtenerSubcategorias'])->name("subcategorias");
 
 use App\Http\Controllers\IncidenciaController;
 
@@ -67,3 +67,6 @@ Route::get('/incidencias', [IncidenciaCrudController::class, 'index'])->name('in
 Route::post('/listar', [gestorController::class, 'index'])->name('index');
 
 Route::post('/select', [gestorController::class, 'select'])->name('select');
+
+
+Route::post('/openIncd', [gestorController::class, 'openIncd'])->name('openIncd');

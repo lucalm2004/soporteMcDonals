@@ -17,11 +17,11 @@ class GestorController extends Controller
         $Sede = $user->Sede;
 
         $query = Incidencia::select('incidencias.*', 'uc.Nom_Usuario AS Cliente', 'uc.Sede', 'ut.Nom_Usuario AS Tecnico', 'sc.Nombre_Subcategoria AS Subcategoria', 'c.Nombre_Categoria AS Categoria')
-    ->join('usuarios as uc', 'uc.ID_Usuario', '=', 'incidencias.ID_Cliente')
-    ->leftJoin('usuarios as ut', 'ut.ID_Usuario', '=', 'incidencias.ID_Tecnico')
-    ->join('subcategorias as sc', 'sc.ID_subcategoria', '=', 'incidencias.ID_subcategoria')
-    ->join('categorias as c', 'c.ID_Categoria', '=', 'sc.ID_Categoria')
-    ->where('uc.Sede', '=', $Sede);
+            ->join('usuarios as uc', 'uc.ID_Usuario', '=', 'incidencias.ID_Cliente')
+            ->leftJoin('usuarios as ut', 'ut.ID_Usuario', '=', 'incidencias.ID_Tecnico')
+            ->join('subcategorias as sc', 'sc.ID_subcategoria', '=', 'incidencias.ID_subcategoria')
+            ->join('categorias as c', 'c.ID_Categoria', '=', 'sc.ID_Categoria')
+            ->where('uc.Sede', '=', $Sede);
 
 
         if ($request->input('tecnico')) {
@@ -58,5 +58,20 @@ class GestorController extends Controller
             ->get();
 
         return response()->json($tecnicos);
+    }
+
+    public function openIncd(Request $request)
+    {
+        $id = $request->input('idIncidencia');
+
+        $query = Incidencia::select('incidencias.*', 'uc.Nom_Usuario AS Cliente', 'uc.Sede', 'ut.Nom_Usuario AS Tecnico', 'sc.Nombre_Subcategoria AS Subcategoria', 'c.Nombre_Categoria AS Categoria')
+            ->join('usuarios as uc', 'uc.ID_Usuario', '=', 'incidencias.ID_Cliente')
+            ->leftJoin('usuarios as ut', 'ut.ID_Usuario', '=', 'incidencias.ID_Tecnico')
+            ->join('subcategorias as sc', 'sc.ID_subcategoria', '=', 'incidencias.ID_subcategoria')
+            ->join('categorias as c', 'c.ID_Categoria', '=', 'sc.ID_Categoria')
+            ->where('incidencias.id', '=', $id)
+            ->get();
+
+        return response()->json($query);
     }
 }

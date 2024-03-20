@@ -180,120 +180,64 @@ function clickTabla() {
     var tbody = document.querySelector('#table_gest');
     tbody.addEventListener('click', function (e) {
         var tr = e.target.parentNode;
-        var firstTd = tr.querySelector('td');
+        var firstTd = tr.querySelector('td').innerHTML;
 
         openIncidencia(firstTd)
     });
 }
 
 function openIncidencia(id) {
+    var formdata = new FormData();
+    var csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+    formdata.append('_token', csrfToken);
 
+    formdata.append('idIncidencia', id);
+
+    var ajax = new XMLHttpRequest();
+    ajax.open('POST', '/openIncd');
+    ajax.onload = function () {
+        if (ajax.status == 200) {
+            // console.log(ajax.responseText)
+            var json = JSON.parse(ajax.responseText);
+
+            for (var key in json) {
+                if (json.hasOwnProperty(key)) {
+                    var item = json[key];
+
+                    var page = '<div class="overlay-incidencia">'
+                    page += '</div>'
+                    page += '<div class="display-incidencia">'
+                    page += '<div class="titulo-incidencia">';
+                    page += '<h1>TITULO DE LA INCIDENCIA</h1>';
+                    page += '</div>';
+                    page += '<div class="descripcion-incidencia">';
+                    page += '<h2>Descripcion de la incidencia</h2>';
+                    page += '</div>';
+                    page += '<div class="tags-incidencia">';
+                    page += '<div class="tag-incidencia">';
+                    page += '<h3>' + item.Categoria + ': ' + item.Subcategoria + '</h3>';
+                    page += '</div>';
+                    page += '<div class="tag-incidencia">';
+                    page += '<h3>' + item.Estado + '</h3>';
+                    page += '</div>';
+                    page += '<div class="tag-incidencia">';
+                    page += '<h3>Prioridad</h3>';
+                    page += '</div>';
+                    page += '<div class="tag-incidencia">';
+                    page += '<h3>Tecnico</h3>';
+                    page += '</div>';
+                    page += '<div class="tag-incidencia">';
+                    page += '<h3>Cliente</h3>';
+                    page += '</div>';
+                    page += '</div>';
+                    page += '<div class="coment-incidencia">';
+                    page += '<h3>Comentario Cliente</h3>';
+                    page += '</div>';
+                    page += '</div>'
+                    document.getElementById('incidencia').innerHTML = page;
+                }
+            }
+        }
+    };
+    ajax.send(formdata);
 }
-
-// function Editar(id) {
-//     var formdata = new FormData();
-
-//     var csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
-
-//     formdata.append('id', id);
-//     formdata.append('_token', csrfToken);
-
-//     var ajax = new XMLHttpRequest();
-//     ajax.open('POST', '/editar');
-//     ajax.onload = function () {
-//         if (ajax.status == 200) {
-
-//             var json = JSON.parse(ajax.responseText);
-//             document.getElementById('idp').value = json.id;
-//             document.getElementById('codigo').value = json.codigo;
-//             document.getElementById('producto').value = json.producto;
-//             document.getElementById('precio').value = json.precio;
-//             document.getElementById('cantidad').value = json.cantidad;
-//             document.getElementById('registrar').value = "Actualizar";
-//             // idp.value = "";
-//             // Reseteamos formulario
-//             form.reset();
-//             // Refrescamos la lista eliminando los filtros
-//             listarProductos('');
-//         }
-//     }
-//     ajax.send(formdata);
-// }
-
-// registrar.addEventListener("click", () => {
-//     var form = document.getElementById("frm");
-//     var formdata = new FormData(form);
-
-//     var csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
-
-//     formdata.append('_token', csrfToken);
-
-//     var ajax = new XMLHttpRequest();
-//     ajax.open('POST', '/registrar');
-//     ajax.onload = function () {
-//         if (ajax.status == 200) {
-//             if (ajax.responseText == "ok") {
-//                 // Insert
-//                 Swal.fire({
-//                     icon: 'success',
-//                     title: 'Producto añadido correctamente',
-//                     ShowConfirmButton: false,
-//                     timer: 1500
-//                 });
-//                 // Reseteamos formulario
-//                 form.reset();
-//                 // Refrescamos la lista eliminando los filtros
-//                 listarProductos('');
-//             } else {
-//                 // Update
-//                 Swal.fire({
-//                     icon: 'success',
-//                     title: 'Producto modificado correctamente',
-//                     ShowConfirmButton: false,
-//                     timer: 1500
-//                 });
-//                 idp.value = "";
-//                 // Reseteamos formulario
-//                 form.reset();
-//                 // Refrescamos la lista eliminando los filtros
-//                 listarProductos('');
-//             }
-//         } else {
-//             respuesta.innerText = `Error`;
-//         }
-//     }
-//     ajax.send(formdata);
-// })
-
-// function Eliminar(id) {
-//     Swal.fire({
-//         title: 'Está seguro de eliminar?',
-//         icon: 'warning',
-//         showCancelButton: true,
-//         confirmButtonColor: '#3085d6',
-//         cancelButtonColor: '#d33',
-//         confirmButtonText: 'Si!',
-//         cancelButtonText: 'NO'
-//     }).then((result) => {
-//         var formdata = new FormData();
-//         var csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
-//         formdata.append('_token', csrfToken);
-//         formdata.append('id', id);
-//         var ajax = new XMLHttpRequest();
-//         ajax.open('POST', '/eliminar');
-//         ajax.onload = function () {
-//             if (ajax.status == 200) {
-//                 if (ajax.responseText == "ok") {
-//                     listarProductos('');
-//                     Swal.fire({
-//                         icon: 'success',
-//                         title: 'Eliminado',
-//                         ShowConfirmButton: false,
-//                         timer: 1500
-//                     })
-//                 }
-//             }
-//         }
-//         ajax.send(formdata);
-//     })
-// }

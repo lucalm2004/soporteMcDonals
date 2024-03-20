@@ -1114,10 +1114,6 @@ main {
   text-align: center;
 }
 
-.table_body tr:hover {
-  background-color: #D6D6DF;
-}
-
 .content_crud {
   grid-template-columns: 100% !important;
   height: 95vh;
@@ -1144,4 +1140,46 @@ main {
   padding: 0.1rem 1rem;
   border-radius: 15px;
   border: 0.1px dotted rgb(73, 57, 113);
+}
+
+.overlay-incidencia {
+  background-color: black;
+  animation: oscurecer 0.5s linear forwards;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+@keyframes oscurecer {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 0.5;
+  }
+}
+
+.display-incidencia {
+  width: 90vw;
+  height: 100%;
+  background-color: rgb(246, 247, 251, 1);
+  position: fixed;
+  right: -90vw;
+  top: 50%;
+  transform: translateY(-50%);
+  opacity: 1;
+  animation: appearFromRight 1s forwards;
+}
+
+@keyframes appearFromRight {
+  from {
+    right: -90vw;
+  }
+
+  to {
+    right: 0;
+  }
 }
