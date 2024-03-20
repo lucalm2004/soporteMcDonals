@@ -9,7 +9,7 @@
         </tr>
         <tr>
             <th>ID del Técnico</th>
-            <th id="fechaAltaHeader">Fecha de Alta <img src="{{ asset('img/flecha.png') }}" alt="Flecha" id="arrowIcon"></th>
+            <th>Fecha de Alta <img src="{{ asset('img/flecha.png') }}" alt="Flecha" id="arrowIcon"></th>
             <th>Fecha de Resolución</th>
             <th>Estado
                 <select id="estadoFiltro">
@@ -33,11 +33,12 @@
         <tr class="incidencia">
             <td>
                 @if($incidencia->ID_Tecnico)
-                    {{ $incidencia->ID_Tecnico }}
+                    {{ $usuarios[$incidencia->ID_Tecnico] ?? 'Desconocido' }}
                 @else
                     No asignado
                 @endif
             </td>
+            
             <td>{{ $incidencia->Data_Alta }}</td>
             <td>
                 @if($incidencia->Data_Resolucion)
@@ -83,30 +84,6 @@
                 }
             });
         });
-
-// Manejar el clic en el encabezado de "Fecha de Alta"
-$('#fechaAltaHeader, #arrowIcon').click(function() {
-    var rows = $('#tablaIncidencias tbody tr').get();
-
-    // Ordenar las filas por fecha de alta en orden ascendente o descendente según el estado actual
-    rows.sort(function(a, b) {
-        var dateA = new Date($(a).find('td:nth-child(2)').text());
-        var dateB = new Date($(b).find('td:nth-child(2)').text());
-
-        return ascending ? dateA - dateB : dateB - dateA;
-    });
-
-    // Actualizar el orden de las filas en la tabla
-    $.each(rows, function(index, row) {
-        $('#tablaIncidencias').append(row);
-    });
-
-    // Cambiar la dirección del orden
-    ascending = !ascending;
-
-    // Cambiar la apariencia de la flecha
-    $('#arrowIcon').toggleClass('flipped', !ascending);
-});
 
 
         // Manejar el cambio en el select de filtrado por estado

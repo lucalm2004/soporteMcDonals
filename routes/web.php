@@ -3,7 +3,7 @@
 use App\Http\Controllers\AuthController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Middleware\HomeMiddleware;
-
+use App\Http\Controllers\IncidenciasTecnicoController; // Importamos el controlador para las incidencias del técnico
 
 /*
 |--------------------------------------------------------------------------
@@ -41,7 +41,8 @@ Route::middleware('auth')->get('/user', function () {
     });
     
     Route::middleware('tecnico')->group(function () {
-        Route::view('home_tecnico', 'home_tecnico');
+        // Ruta para mostrar las incidencias del técnico
+        Route::get('tecnico_home', [IncidenciasTecnicoController::class, 'index'])->name('tecnico_home');
     });
     
     Route::middleware('cliente')->group(function () {
@@ -62,4 +63,3 @@ use App\Http\Controllers\IncidenciaCrudController;
 Route::get('/incidencias', [IncidenciaCrudController::class, 'index'])->name('incidencias.index');
 
 Route::post('/actualizar_estado_incidencia', [IncidenciaController::class, 'actualizarEstado'])->name('actualizar.estado.incidencia');
-

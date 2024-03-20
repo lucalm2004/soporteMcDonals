@@ -37,15 +37,7 @@
                 <span  class="nav-text">Incidencias</span>
               </a>
             </li>
-  
-            <li class="nav-item">
-              <b></b>
-              <b></b>
-              <a href="#">
-                <i class="fa fa-calendar-check nav-icon"></i>
-                <span class="nav-text">Chats</span>
-              </a>
-            </li>
+
   
           </ul>
         </nav>
