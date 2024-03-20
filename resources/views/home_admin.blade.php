@@ -8,6 +8,8 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <link rel="stylesheet" href="{{ asset('css/home.css') }}">
     <title>Document</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
 </head>
 
 <body>
@@ -18,16 +20,16 @@
                 src="https://github.com/ecemgo/mini-samples-great-tricks/assets/13468728/4cfdcb5a-0137-4457-8be1-6e7bd1f29ebb"
                 alt="" />
             <ul>
-                <li class="nav-item active">
+                <li id="homepage" class="nav-item active">
                     <b></b>
                     <b></b>
                     <a href="#">
                         <i class="fa fa-user nav-icon"></i>
-                        <span class="nav-text">Usuarios</span>
+                        <span  class="nav-text">Usuarios</span>
                     </a>
                 </li>
 
-                <li class="nav-item">
+                <li  id="incipage" class="nav-item">
                     <b></b>
                     <b></b>
                     <a href="#">
@@ -49,7 +51,7 @@
             </ul>
         </nav>
 
-        <section class="content">
+        <section id="homeContent" class="content">
             <div class="left-content">
                 <div class="activities">
                     <h1>Sedes</h1>
@@ -146,12 +148,15 @@
     } else {
         echo 'No se encontraron registros.';
     }
+
                             ?>
 
 
                             
 
                         </div>
+                        <button class='btn'>Ver Más</button>
+
                     </div>
                 </div>
             </div>
@@ -240,11 +245,43 @@
                 </div>
             </div>
         </section>
+        <section id="incidenciasContent" class="content-section" style="display: none;">
+
+            <script>
+                $(document).ready(function() {
+                    $.ajax({
+                        url: '{{ route("categorias.index") }}',
+                        method: 'GET',
+                        success: function(response) {
+                            $('#incidenciasContent').html(response);
+                        },
+                        error: function(xhr, status, error) {
+                            console.error('Hubo un error al obtener las incidencias:', error);
+                        }
+                    });
+                });
+              </script>
+  
+      </section>
     </main>
+
+    
     <script src="{{ asset('js/home.js') }}"></script>
     <script src="{{ asset('js/subcategorias.js') }}"></script>
 
     <script src="https://kit.fontawesome.com/a7409f463b.js" crossorigin="anonymous"></script>
+    <script>
+        document.getElementById('homepage').addEventListener('click', function () {
+        document.getElementById('incidenciasContent').style.display = 'none';
+        document.getElementById('homeContent').style.display = 'grid';
+    })
+
+    document.getElementById('incipage').addEventListener('click', function () {
+        document.getElementById('homeContent').style.display = 'none';
+        document.getElementById('incidenciasContent').style.display = 'grid';
+        listarCategorias();
+    })
+    </script>
 </body>
 
 </html>
