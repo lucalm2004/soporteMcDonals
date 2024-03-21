@@ -2,9 +2,8 @@
     <div class="table_container">
         <h1>Administración de Categorias</h1><br>
         <div class='filtros'>
-            <label for="usuario_tecnico">Tecnico: </label><select id="usuario_tecnico"></select>
-            <button id="resueltas" class="buttonNoDisplay">Incidencias Resueltas <i id="eye"
-                    class="fa fa-eye-slash"></i></button>
+            <label for="usuario_tecnico">Buscar: </label>
+            <input type="text" id="resueltas" class="buttonNoDisplay">
         </div>
         <br>
         <table class="table">

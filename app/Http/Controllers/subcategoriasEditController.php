@@ -18,10 +18,15 @@ class subcategoriasEditController extends Controller
         } elseif (isset($_POST['subcategoria'])) {
             $ids = $_POST['ide'];
             $update = $_POST['subcategoria'];
+            $tipo = $_POST['tipo'];
 
             DB::table('subcategorias')
-                ->where('ID_subcategoria', $ids)
-                ->update(['Nombre_Subcategoria' => $update]);
+            ->where('ID_subcategoria', $ids)
+            ->update([
+                'Nombre_Subcategoria' => $update,
+                'ID_Categoria' => $tipo
+            ]);
+        
 
             return response()->json(['success' => true, 'message' => 'Registro actualizado exitosamente']);
         } elseif (isset($_POST['eliminar'])) {

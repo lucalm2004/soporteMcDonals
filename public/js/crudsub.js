@@ -69,31 +69,37 @@ function editare(ID_Categoria) {
         if (ajax.status == 200) {
             var json = JSON.parse(ajax.responseText);
             // json.forEach(function(pen) {
+            // });
             Swal.fire({
                 title: 'Editar',
-                html: '<input id="swal-input1" class="swal2-input" value="' + json + '">',
+                html: '<input id="swal-input1" class="swal2-input" value="' + json + '"></br><select id="Categorias" class="swal2-select">  <option value="2">Hardware</option><option value="1">Software</option></select>',
                 showCancelButton: true,
                 confirmButtonText: 'Confirmar',
                 cancelButtonText: 'Cancelar',
                 showLoaderOnConfirm: true,
                 preConfirm: () => {
-                    const categoria = Swal.getPopup().querySelector('#swal-input1').value
+                    const categoria = Swal.getPopup().querySelector('#swal-input1').value;
+                    const selectedValue = Swal.getPopup().querySelector('#Categorias').value;
+
                     if (!categoria) {
-                        Swal.showValidationMessage('Por favor ingresa una categoría')
+                        Swal.showValidationMessage('Por favor ingresa una categoría');
                     }
-                    return categoria
+
+                    return { categoria, selectedValue };
                 }
             }).then((result) => {
                 if (result.isConfirmed) {
-                    const categoria = result.value;
-                    confirmarSubcategoria(categoria, id);
+                    const { categoria, selectedValue } = result.value;
+                    confirmarSubcategoria(categoria, id, selectedValue);
                 }
             });
 
-            // });
+
         } else {
             resultado.innerText = "Error";
         }
+
+
     };
     ajax.send(formdata);
 }
@@ -101,12 +107,13 @@ function editare(ID_Categoria) {
 
 
 
-function confirmarSubcategoria(categoria, id) {
+function confirmarSubcategoria(categoria, id, tipo) {
     var formdata = new FormData();
     var csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
     formdata.append('_token', csrfToken);
     formdata.append('ide', id);
     formdata.append('subcategoria', categoria);
+    formdata.append('tipo', tipo);
     var ajax = new XMLHttpRequest();
     ajax.open('POST', '/subcategoriasEdit');
     ajax.onload = function() {
