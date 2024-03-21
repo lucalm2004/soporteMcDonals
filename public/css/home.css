@@ -1142,6 +1142,16 @@ main {
   border: 0.1px dotted rgb(73, 57, 113);
 }
 
+/**/
+
+.left-content {
+  height: 100% !important;
+}
+
+#incidencia {
+  height: 0;
+}
+
 .overlay-incidencia {
   background-color: black;
   animation: oscurecer 0.5s linear forwards;
@@ -1159,6 +1169,16 @@ main {
 
   to {
     opacity: 0.5;
+  }
+}
+
+@keyframes aclarecer {
+  from {
+    opacity: 0.5;
+  }
+
+  to {
+    opacity: 0;
   }
 }
 
@@ -1182,4 +1202,44 @@ main {
   to {
     right: 0;
   }
+}
+
+@keyframes dissapearToRight {
+  from {
+    right: 0;
+  }
+
+  to {
+    right: -90vw;
+  }
+}
+
+.table_body tr:hover {
+  background-color: #D4DAF1;
+}
+
+.hide-incidencia {
+  width: 90vw;
+  height: 100%;
+  background-color: rgb(246, 247, 251, 1);
+  position: fixed;
+  right: -90vw;
+  top: 50%;
+  transform: translateY(-50%);
+  opacity: 1;
+  animation: dissapearToRight 1s forwards;
+}
+
+.hide-overlay {
+  background-color: black;
+  animation: aclarecer 0.5s linear forwards;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.descripcion-incidencia {
+  background-color: #f6f7fb;
 }

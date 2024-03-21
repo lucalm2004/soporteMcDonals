@@ -204,14 +204,11 @@ function openIncidencia(id) {
                 if (json.hasOwnProperty(key)) {
                     var item = json[key];
 
-                    var page = '<div class="overlay-incidencia">'
+                    var page = '<div id="overlay-incidencia" class="overlay-incidencia">'
                     page += '</div>'
-                    page += '<div class="display-incidencia">'
-                    page += '<div class="titulo-incidencia">';
-                    page += '<h1>TITULO DE LA INCIDENCIA</h1>';
-                    page += '</div>';
+                    page += '<div id="display-incidencia" class="display-incidencia">'
                     page += '<div class="descripcion-incidencia">';
-                    page += '<h2>Descripcion de la incidencia</h2>';
+                    page += '<h2>' + item.Comentario_Cliente + '</h2>';
                     page += '</div>';
                     page += '<div class="tags-incidencia">';
                     page += '<div class="tag-incidencia">';
@@ -221,13 +218,19 @@ function openIncidencia(id) {
                     page += '<h3>' + item.Estado + '</h3>';
                     page += '</div>';
                     page += '<div class="tag-incidencia">';
-                    page += '<h3>Prioridad</h3>';
+                    page += '<h3>' + item.Prioridad + '</h3>';
                     page += '</div>';
                     page += '<div class="tag-incidencia">';
-                    page += '<h3>Tecnico</h3>';
+                    page += '<h3>'
+                    if (item.Tecnico === null) {
+                        page += 'Sin asignar';
+                    } else {
+                        page += item.Tecnico;
+                    }
+                    page += '</h3>'
                     page += '</div>';
                     page += '<div class="tag-incidencia">';
-                    page += '<h3>Cliente</h3>';
+                    page += '<h3>' + item.Cliente + '</h3>';
                     page += '</div>';
                     page += '</div>';
                     page += '<div class="coment-incidencia">';
@@ -235,9 +238,23 @@ function openIncidencia(id) {
                     page += '</div>';
                     page += '</div>'
                     document.getElementById('incidencia').innerHTML = page;
+
+                    closeAlert();
                 }
             }
         }
     };
     ajax.send(formdata);
+}
+
+function closeAlert() {
+    document.getElementById('overlay-incidencia').addEventListener('click', function (e) {
+        document.getElementById('display-incidencia').className = 'hide-incidencia'
+        document.getElementById('overlay-incidencia').className = 'hide-overlay'
+
+        setTimeout(function () {
+            document.getElementById('incidencia').innerHTML = ''
+        }, 1000);
+
+    })
 }
