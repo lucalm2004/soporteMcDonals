@@ -1,21 +1,21 @@
-function listarCategorias() {
-    var resultado = document.getElementById('resultados');
+function listarSubcategorias() {
+    var resultado = document.getElementById('resultadoe');
     var formdata = new FormData();
     var csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
     formdata.append('_token', csrfToken);
 
     var ajax = new XMLHttpRequest();
-    ajax.open('POST', '/categoriasView');
+    ajax.open('POST', '/subcategoriasView');
     ajax.onload = function() {
         var str = "";
         if (ajax.status == 200) {
             var json = JSON.parse(ajax.responseText);
             var tabla = "";
             json.forEach(function(item) {
-                str = "<tr><td>" + item.ID_Categoria + "</td>";
-                str += "<td>" + item.Nombre_Categoria + "</td>";
-                str += "<td><button id='editar' onclick=editar(" + item.ID_Categoria + ") class='btn' style='background: green;color:white;display:inline; margin-right: 2%;'>Editar</button><button onclick=eliminar(" + item.ID_Categoria + ") id='eliminar' class='btn' style='background: red;color:white;display:inline;margin-left: 2%;'>Eliminar</button></td>";
-                str += "<td><button onclick='ver(" + item.ID_Categoria + ", \"" + item.Nombre_Categoria + "\")' id='ver' class='btn' style='background:blue; color:white'>ℹ️</button></td>";
+                str = "<tr><td>" + item.ID_subcategoria + "</td>";
+                str += "<td>" + item.Nombre_Subcategoria + "</td>";
+                str += "<td>" + item.categoria + "</td>";
+                str += "<td><button  onclick=editare(" + item.ID_subcategoria + ") class='btn' style='background: green;color:white;display:inline; margin-right: 2%;'>Editar</button><button onclick=eliminare(" + item.ID_subcategoria + ") id='eliminar' class='btn' style='background: red;color:white;display:inline;margin-left: 2%;'>Eliminar</button></td>";
                 str += "</tr>";
                 tabla += str;
             });
@@ -27,8 +27,7 @@ function listarCategorias() {
     ajax.send(formdata);
 }
 
-
-function eliminar(ID_Categoria) {
+function eliminare(ID_Categoria) {
 
 
     id = ID_Categoria;
@@ -39,7 +38,7 @@ function eliminar(ID_Categoria) {
     formdata.append('eliminar', id);
 
     var ajax = new XMLHttpRequest();
-    ajax.open('POST', '/categoriasEdit');
+    ajax.open('POST', '/subcategoriasEdit');
     ajax.onload = function() {
         if (ajax.status == 200) {
             Swal.fire({
@@ -48,7 +47,7 @@ function eliminar(ID_Categoria) {
                 showConfirmButton: false,
                 timer: 1500
             });
-            listarCategorias();
+            listarSubcategorias();
         } else {
             resultado.innerText = "Error";
         }
@@ -56,7 +55,7 @@ function eliminar(ID_Categoria) {
     ajax.send(formdata);
 }
 
-function editar(ID_Categoria) {
+function editare(ID_Categoria) {
     id = ID_Categoria;
 
     var formdata = new FormData();
@@ -65,7 +64,7 @@ function editar(ID_Categoria) {
     formdata.append('id', id);
 
     var ajax = new XMLHttpRequest();
-    ajax.open('POST', '/categoriasEdit');
+    ajax.open('POST', '/subcategoriasEdit');
     ajax.onload = function() {
         if (ajax.status == 200) {
             var json = JSON.parse(ajax.responseText);
@@ -87,7 +86,7 @@ function editar(ID_Categoria) {
             }).then((result) => {
                 if (result.isConfirmed) {
                     const categoria = result.value;
-                    confirmarCategoria(categoria, id);
+                    confirmarSubcategoria(categoria, id);
                 }
             });
 
@@ -102,14 +101,14 @@ function editar(ID_Categoria) {
 
 
 
-function confirmarCategoria(categoria, id) {
+function confirmarSubcategoria(categoria, id) {
     var formdata = new FormData();
     var csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
     formdata.append('_token', csrfToken);
     formdata.append('ide', id);
-    formdata.append('categoria', categoria);
+    formdata.append('subcategoria', categoria);
     var ajax = new XMLHttpRequest();
-    ajax.open('POST', '/categoriasEdit');
+    ajax.open('POST', '/subcategoriasEdit');
     ajax.onload = function() {
         if (ajax.status == 200) {
             Swal.fire({
@@ -118,7 +117,7 @@ function confirmarCategoria(categoria, id) {
                 showConfirmButton: false,
                 timer: 1500
             });
-            listarCategorias();
+            listarSubcategorias();
         } else {
             Swal.fire({
                 icon: 'error',
@@ -127,45 +126,6 @@ function confirmarCategoria(categoria, id) {
             });
         }
     };
-    ajax.onerror = function() {
-        Swal.fire({
-            icon: 'error',
-            title: 'Error',
-            text: 'Hubo un problema de red al intentar editar la categoría. Por favor, verifica tu conexión a Internet y vuelve a intentarlo.'
-        });
-    };
-    ajax.send(formdata);
-}
-
-
-function ver(id, Nombre_Categoria) {
-    var formdata = new FormData();
-    var csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
-    formdata.append('_token', csrfToken);
-    formdata.append('ver', id);
-    var ajax = new XMLHttpRequest();
-    ajax.open('POST', '/categoriasEdit');
-    ajax.onload = function() {
-        if (ajax.status == 200) {
-            var json = JSON.parse(ajax.responseText);
-            var htmlContent = "Subcategorias:";
-            json.forEach(function(item) {
-                htmlContent += `<p>${item.Nombre_Subcategoria}</p>`;
-            });
-            Swal.fire({
-                title: Nombre_Categoria,
-                html: htmlContent,
-                icon: "question"
-            });
-        } else {
-            Swal.fire({
-                icon: 'error',
-                title: 'Error',
-                text: 'Hubo un problema al editar la categoría. Por favor, inténtalo de nuevo más tarde.'
-            });
-        }
-    };
-
     ajax.onerror = function() {
         Swal.fire({
             icon: 'error',

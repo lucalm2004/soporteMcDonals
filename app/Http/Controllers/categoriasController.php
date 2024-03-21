@@ -9,11 +9,15 @@ class categoriasController extends Controller
 {
     public function index(Request $request)
     {
-        $query = categoria::select('*');
 
-        $resultado = $query->get();
+       
+            $query = categoria::select('*');
 
-        return response()->json($resultado);
+            $resultado = $query->get();
+    
+            return response()->json($resultado);
+        
+        
     }
 
    

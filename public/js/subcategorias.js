@@ -31,8 +31,17 @@ window.onload = function() {
                     return;
                 }
             });
-            options += "  <button class='btn'>Ver Más</button>";
+            options += "  <button id='subBtn' class='btn'>Ver Más</button>";
 
+            setTimeout(function() {
+                document.getElementById('subBtn').addEventListener('click', function() {
+                    document.getElementById('homeContent').style.display = 'none';
+                    document.getElementById('subcategoriasContent').style.display = 'grid';
+                    document.getElementById('homepage').classList.remove("active");
+                    document.getElementById('subs').classList.add("active");
+                    listarSubcategorias();
+                })
+            }, 3000);
 
             selectContainer.innerHTML = options;
         } else {

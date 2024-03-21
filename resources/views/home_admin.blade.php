@@ -38,7 +38,7 @@
                     </a>
                 </li>
 
-                <li class="nav-item">
+                <li id="subs" class="nav-item">
                     <b></b>
                     <b></b>
                     <a href="#">
@@ -112,9 +112,7 @@
                     <div class="weekly-schedule">
                         <h1>Subcategorias</h1>
                         <div id="subCat" class="calendar">
-                            
-
-                            
+            
                         </div>
                     </div>
 
@@ -155,7 +153,7 @@
                             
 
                         </div>
-                        <button class='btn'>Ver Más</button>
+                        <button id="catBtn" class='btn'>Ver Más</button>
 
                     </div>
                 </div>
@@ -261,8 +259,25 @@
                     });
                 });
               </script>
-  
       </section>
+      <section id="subcategoriasContent" class="content-section" style="display: none;">
+
+        <script>
+            $(document).ready(function() {
+                $.ajax({
+                    url: '{{ route("subcategorias.index") }}',
+                    method: 'GET',
+                    success: function(response) {
+                        $('#subcategoriasContent').html(response);
+                    },
+                    error: function(xhr, status, error) {
+                        console.error('Hubo un error al obtener las incidencias:', error);
+                    }
+                });
+            });
+          </script>
+
+  </section>
     </main>
 
     
@@ -274,14 +289,37 @@
         document.getElementById('homepage').addEventListener('click', function () {
         document.getElementById('incidenciasContent').style.display = 'none';
         document.getElementById('homeContent').style.display = 'grid';
+        document.getElementById('subcategoriasContent').style.display = 'none';
+
     })
+
+    document.getElementById('subs').addEventListener('click', function () {
+        listarSubcategorias();
+        document.getElementById('incidenciasContent').style.display = 'none';
+        document.getElementById('homeContent').style.display = 'none';
+        document.getElementById('subcategoriasContent').style.display = 'grid';
+
+    })
+
+    document.getElementById('catBtn').addEventListener('click', function () {
+        document.getElementById('homeContent').style.display = 'none';
+        document.getElementById('incidenciasContent').style.display = 'grid';
+        document.getElementById('homepage').classList.remove("active");
+        document.getElementById('incipage').classList.add("active");
+        listarCategorias();
+    })
+ 
 
     document.getElementById('incipage').addEventListener('click', function () {
         document.getElementById('homeContent').style.display = 'none';
         document.getElementById('incidenciasContent').style.display = 'grid';
+        document.getElementById('subcategoriasContent').style.display = 'none';
+
         listarCategorias();
     })
     </script>
+    <script src="{{ asset('js/crudsub.js') }}"></script>
+
 </body>
 
 </html>

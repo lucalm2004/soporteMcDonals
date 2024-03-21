@@ -5,6 +5,14 @@ use App\Http\Controllers\categoriasController;
 use App\Http\Controllers\categoriasCrudController;
 use App\Http\Controllers\gestorController;
 use App\Http\Controllers\SubCategoriasController;
+use App\Http\Controllers\categoriasEditController;
+use App\Http\Controllers\subcategoriasCrudController;
+use App\Http\Controllers\subcategoriasEditController;
+
+
+
+
+
 
 
 use Illuminate\Support\Facades\Route;
@@ -68,6 +76,13 @@ Route::get('/incidencias', [IncidenciaCrudController::class, 'index'])->name('in
 
 Route::get('/categorias', [categoriasCrudController::class, 'index'])->name('categorias.index');
 
+Route::get('/subcategorias', [subcategoriasCrudController::class, 'index'])->name('subcategorias.index');
+
+
+Route::post('/subcategoriasView', [SubCategoriasController::class, 'index'])->name('subcategoriaView');
+
+
+
 
 // Gestor
 
@@ -76,6 +91,13 @@ Route::post('/listar', [gestorController::class, 'index'])->name('index');
 Route::post('/select', [gestorController::class, 'select'])->name('select');
 
 Route::post('/categoriasView', [categoriasController::class, 'index'])->name('categoriaView');
+
+Route::post('/categoriasEdit', [categoriasEditController::class, 'index'])->name('categoriaEdit');
+
+Route::post('/subcategoriasEdit', [subcategoriasEditController::class, 'index'])->name('subcategoriaEdit');
+
+
+
 
 
 
