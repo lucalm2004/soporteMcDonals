@@ -4,6 +4,7 @@ use App\Http\Controllers\AuthController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Middleware\HomeMiddleware;
 use App\Http\Controllers\IncidenciasTecnicoController; // Importamos el controlador para las incidencias del técnico
+use App\Http\Controllers\TecnicoController;
 
 /*
 |--------------------------------------------------------------------------
@@ -63,3 +64,8 @@ use App\Http\Controllers\IncidenciaCrudController;
 Route::get('/incidencias', [IncidenciaCrudController::class, 'index'])->name('incidencias.index');
 
 Route::post('/actualizar_estado_incidencia', [IncidenciaController::class, 'actualizarEstado'])->name('actualizar.estado.incidencia');
+
+Route::get('/tecnico/7/incidencias', [TecnicoController::class, 'index']);
+
+
+
