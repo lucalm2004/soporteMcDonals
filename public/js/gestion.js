@@ -203,25 +203,24 @@ function openIncidencia(id) {
             for (var key in json) {
                 if (json.hasOwnProperty(key)) {
                     var item = json[key];
+                    console.log(item);
 
                     var page = '<div id="overlay-incidencia" class="overlay-incidencia">'
                     page += '</div>'
                     page += '<div id="display-incidencia" class="display-incidencia">'
+                    page += '<div class="incidencia-ennards">';
                     page += '<div class="descripcion-incidencia">';
-                    page += '<h2>' + item.Comentario_Cliente + '</h2>';
+                    page += '<h2>' + item.Categoria + ' - ' + item.Subcategoria + '</h2>';
                     page += '</div>';
                     page += '<div class="tags-incidencia">';
                     page += '<div class="tag-incidencia">';
-                    page += '<h3>' + item.Categoria + ': ' + item.Subcategoria + '</h3>';
+                    page += '<h3>Estado: ' + item.Estado + '</h3>';
                     page += '</div>';
                     page += '<div class="tag-incidencia">';
-                    page += '<h3>' + item.Estado + '</h3>';
+                    page += '<h3>Prioridad: ' + item.Prioridad + '</h3>';
                     page += '</div>';
                     page += '<div class="tag-incidencia">';
-                    page += '<h3>' + item.Prioridad + '</h3>';
-                    page += '</div>';
-                    page += '<div class="tag-incidencia">';
-                    page += '<h3>'
+                    page += '<h3>Tecnico: '
                     if (item.Tecnico === null) {
                         page += 'Sin asignar';
                     } else {
@@ -230,13 +229,14 @@ function openIncidencia(id) {
                     page += '</h3>'
                     page += '</div>';
                     page += '<div class="tag-incidencia">';
-                    page += '<h3>' + item.Cliente + '</h3>';
+                    page += '<h3>Cliente: ' + item.Cliente + '</h3>';
                     page += '</div>';
                     page += '</div>';
                     page += '<div class="coment-incidencia">';
-                    page += '<h3>Comentario Cliente</h3>';
+                    page += '<h3>' + item.Comentario_Cliente + '</h3>';
                     page += '</div>';
-                    page += '</div>'
+                    page += '</div>';
+                    page += '</div>';
                     document.getElementById('incidencia').innerHTML = page;
 
                     closeAlert();

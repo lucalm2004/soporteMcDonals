@@ -1243,3 +1243,35 @@ main {
 .descripcion-incidencia {
   background-color: #f6f7fb;
 }
+
+.incidencia-ennards {
+  padding: 3rem 5rem;
+}
+
+.descripcion-incidencia {
+  border-bottom: 1px dotted black;
+  margin-bottom: 1rem;
+}
+
+.tags-incidencia {
+  display: grid;
+  grid-auto-flow: column;
+  grid-gap: 5px;
+}
+
+.tag-incidencia {
+  width: 100%;
+  block-size: fit-content;
+  background-color: #D4DAF1;
+  border-radius: 20px;
+  padding: 1rem;
+}
+
+.coment-incidencia {
+  width: 100%;
+  background-color: #D4DAF1;
+  border-radius: 20px;
+  padding: 1rem;
+  margin-top: 1rem;
+  height: 20vh;
+}
