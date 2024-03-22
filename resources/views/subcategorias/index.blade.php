@@ -2,9 +2,8 @@
     <div class="table_container">
         <h1>Administración de Subcategorias</h1><br>
         <div class='filtros'>
-            <label for="usuario_tecnico">Buscar: </label>
-            <input type="text" id="resueltas" class="buttonNoDisplay">
-        </div>
+            <label for="usuario_tecnico">Filtrar: </label><select id="usuario_tecnico"><option value="Software">Software</option><option value="Hardware">Hardware</option></select>
+                   </div>
         <br>
         <table class="table">
             <thead class="table_head">

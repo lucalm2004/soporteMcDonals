@@ -106,6 +106,43 @@ function editare(ID_Categoria) {
 
 
 
+setTimeout(function() {
+    function handleChange() {
+        var selectElement = document.getElementById("usuario_tecnico");
+        var selectedValue = selectElement.value;
+        var resultado = document.getElementById('resultadoe');
+        var formdata = new FormData();
+        formdata.append('selectedValue', selectedValue);
+        var csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+        formdata.append('_token', csrfToken);
+
+        var ajax = new XMLHttpRequest();
+        ajax.open('POST', '/subcategoriasView');
+        ajax.onload = function() {
+            var str = "";
+            if (ajax.status == 200) {
+                var json = JSON.parse(ajax.responseText);
+                var tabla = "";
+                json.forEach(function(item) {
+                    str = "<tr><td>" + item.ID_subcategoria + "</td>";
+                    str += "<td>" + item.Nombre_Subcategoria + "</td>";
+                    str += "<td>" + item.categoria + "</td>";
+                    str += "<td><button  onclick=editare(" + item.ID_subcategoria + ") class='btn' style='background: green;color:white;display:inline; margin-right: 2%;'>Editar</button><button onclick=eliminare(" + item.ID_subcategoria + ") id='eliminar' class='btn' style='background: red;color:white;display:inline;margin-left: 2%;'>Eliminar</button></td>";
+                    str += "</tr>";
+                    tabla += str;
+                });
+                resultado.innerHTML = tabla;
+            } else {
+                resultado.innerText = "Error";
+            }
+        };
+        ajax.send(formdata);
+    }
+
+    document.getElementById("usuario_tecnico").addEventListener("change", handleChange);
+
+}, 2000);
+
 
 function confirmarSubcategoria(categoria, id, tipo) {
     var formdata = new FormData();

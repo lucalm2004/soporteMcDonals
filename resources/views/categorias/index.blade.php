@@ -1,10 +1,7 @@
 <div class="left-content">
     <div class="table_container">
         <h1>Administración de Categorias</h1><br>
-        <div class='filtros'>
-            <label for="usuario_tecnico">Buscar: </label>
-            <input type="text" id="resueltas" class="buttonNoDisplay">
-        </div>
+        
         <br>
         <table class="table">
             <thead class="table_head">
