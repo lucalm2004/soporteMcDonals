@@ -10,7 +10,10 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 
     listarIncidencias('');
-    selectTecnicos();
+
+    selectTecnicos('', function (options) {
+        document.getElementById('usuario_tecnico').innerHTML = options;
+    });
 
     document.getElementById('usuario_tecnico').addEventListener('change', function () {
         updateFilter('tecnico');
@@ -83,9 +86,7 @@ function updateFilter(order) {
     listarIncidencias(tecnico, resolved, orden);
 }
 
-function selectTecnicos() {
-    var selectContainer = document.getElementById('usuario_tecnico');
-
+function selectTecnicos(tecnico, callback) {
     var formdata = new FormData();
     var csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
     formdata.append('_token', csrfToken);
@@ -97,15 +98,18 @@ function selectTecnicos() {
         if (ajax.status == 200) {
             var json = JSON.parse(ajax.responseText);
             options += "<option value=''>Todos</option>";
-
             json.forEach(function (item) {
-                options += "<option value='" + item.ID_Usuario + "'>";
+                console.log(tecnico + ' ' + item.Nom_Usuario)
+
+                if (item.Nom_Usuario === tecnico) {
+                    options += "<option value='" + item.ID_Usuario + "' selected>";
+                } else {
+                    options += "<option value='" + item.ID_Usuario + "'>";
+                }
                 options += item.Nom_Usuario + "</option>";
             });
 
-            selectContainer.innerHTML = options;
-        } else {
-            resultado.innerText = "Error";
+            callback(options);
         }
     };
     ajax.send(formdata);
@@ -121,7 +125,6 @@ function listarIncidencias(tecnico, resolved, orden) {
         formdata.append('resolved', resolved);
     }
 
-    // Append each key-value pair of the 'orden' object separately
     if (orden) {
         for (var key in orden) {
             if (orden.hasOwnProperty(key)) {
@@ -190,62 +193,59 @@ function openIncidencia(id) {
     var formdata = new FormData();
     var csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
     formdata.append('_token', csrfToken);
-
     formdata.append('idIncidencia', id);
 
     var ajax = new XMLHttpRequest();
     ajax.open('POST', '/openIncd');
     ajax.onload = function () {
         if (ajax.status == 200) {
-            // console.log(ajax.responseText)
             var json = JSON.parse(ajax.responseText);
+            var page = '';
 
             for (var key in json) {
                 if (json.hasOwnProperty(key)) {
                     var item = json[key];
-                    console.log(item);
 
-                    var page = '<div id="overlay-incidencia" class="overlay-incidencia">'
-                    page += '</div>'
-                    page += '<div id="display-incidencia" class="display-incidencia">'
-                    page += '<div class="incidencia-ennards">';
-                    page += '<div class="descripcion-incidencia">';
-                    page += '<h2>' + item.Categoria + ' - ' + item.Subcategoria + '</h2>';
-                    page += '</div>';
-                    page += '<div class="tags-incidencia">';
-                    page += '<div class="tag-incidencia">';
-                    page += '<h3>Estado: ' + item.Estado + '</h3>';
-                    page += '</div>';
-                    page += '<div class="tag-incidencia">';
-                    page += '<h3>Prioridad: ' + item.Prioridad + '</h3>';
-                    page += '</div>';
-                    page += '<div class="tag-incidencia">';
-                    page += '<h3>Tecnico: '
-                    if (item.Tecnico === null) {
-                        page += 'Sin asignar';
-                    } else {
-                        page += item.Tecnico;
-                    }
-                    page += '</h3>'
-                    page += '</div>';
-                    page += '<div class="tag-incidencia">';
-                    page += '<h3>Cliente: ' + item.Cliente + '</h3>';
-                    page += '</div>';
-                    page += '</div>';
-                    page += '<div class="coment-incidencia">';
-                    page += '<h3>' + item.Comentario_Cliente + '</h3>';
-                    page += '</div>';
-                    page += '</div>';
-                    page += '</div>';
-                    document.getElementById('incidencia').innerHTML = page;
+                    selectTecnicos(item.Tecnico, function (options) {
+                        page += '<div id="overlay-incidencia" class="overlay-incidencia"></div>';
+                        page += '<div id="display-incidencia" class="display-incidencia">';
+                        page += '<div class="incidencia-ennards">';
+                        page += '<div class="descripcion-incidencia">';
+                        page += '<h2>' + item.Categoria + ' - ' + item.Subcategoria + '</h2>';
+                        page += '</div>';
+                        page += '<div class="tags-incidencia">';
+                        page += '<div class="tag-incidencia">';
+                        page += '<h3>Estado: ' + item.Estado + '</h3>';
+                        page += '</div>';
+                        page += '<div class="tag-incidencia">';
+                        page += '<h3>Prioridad: ' + item.Prioridad + '</h3>';
+                        page += '</div>';
+                        page += '<div class="tag-incidencia">';
+                        page += '<h3>Tecnico: <select id="tecnico-cambio">' + options + '</select></h3>';
+                        page += '</div>';
+                        page += '<div class="tag-incidencia">';
+                        page += '<h3>Cliente: ' + item.Cliente + '</h3>';
+                        page += '</div>';
+                        page += '</div>';
+                        page += '<div class="coment-incidencia">';
+                        page += '<h3>' + item.Comentario_Cliente + '</h3>';
+                        page += '</div>';
+                        page += '</div>';
+                        page += '</div>';
 
-                    closeAlert();
+                        document.getElementById('incidencia').innerHTML = page;
+                        closeAlert();
+                        document.getElementById('tecnico-cambio').addEventListener('change', function () {
+                            updateTecnico(this.value);
+                        })
+                    });
                 }
             }
         }
     };
     ajax.send(formdata);
 }
+
 
 function closeAlert() {
     document.getElementById('overlay-incidencia').addEventListener('click', function (e) {
@@ -257,4 +257,19 @@ function closeAlert() {
         }, 1000);
 
     })
+}
+
+function updateTecnico(id) {
+    var formdata = new FormData();
+    var csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+    formdata.append('_token', csrfToken);
+    formdata.append('idIncidencia', id);
+
+    var ajax = new XMLHttpRequest();
+    ajax.open('POST', '/openIncd');
+    ajax.onload = function () {
+        if (ajax.status == 200) {
+
+        }
+    }
 }
