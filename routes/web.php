@@ -68,5 +68,8 @@ Route::post('/listar', [gestorController::class, 'index'])->name('index');
 
 Route::post('/select', [gestorController::class, 'select'])->name('select');
 
+Route::post('/actualizarGestor', [gestorController::class, 'actualizarGestor'])->name('actualizarGestor');
+
+
 
 Route::post('/openIncd', [gestorController::class, 'openIncd'])->name('openIncd');

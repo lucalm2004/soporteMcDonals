@@ -99,7 +99,7 @@ function selectTecnicos(tecnico, callback) {
             var json = JSON.parse(ajax.responseText);
             options += "<option value=''>Todos</option>";
             json.forEach(function (item) {
-                console.log(tecnico + ' ' + item.Nom_Usuario)
+                // console.log(tecnico + ' ' + item.Nom_Usuario)
 
                 if (item.Nom_Usuario === tecnico) {
                     options += "<option value='" + item.ID_Usuario + "' selected>";
@@ -129,7 +129,7 @@ function listarIncidencias(tecnico, resolved, orden) {
         for (var key in orden) {
             if (orden.hasOwnProperty(key)) {
                 formdata.append('orden[' + key + ']', orden[key]);
-                console.log('orden[' + key + ']', orden[key]);
+                // console.log('orden[' + key + ']', orden[key]);
             }
         }
     }
@@ -236,7 +236,7 @@ function openIncidencia(id) {
                         document.getElementById('incidencia').innerHTML = page;
                         closeAlert();
                         document.getElementById('tecnico-cambio').addEventListener('change', function () {
-                            updateTecnico(this.value);
+                            updateTecnico(this.value, id);
                         })
                     });
                 }
@@ -259,17 +259,22 @@ function closeAlert() {
     })
 }
 
-function updateTecnico(id) {
+function updateTecnico(idTecnico, idIncidencia) {
     var formdata = new FormData();
     var csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
     formdata.append('_token', csrfToken);
-    formdata.append('idIncidencia', id);
+    formdata.append('idTecnico', idTecnico);
+    formdata.append('idIncidencia', idIncidencia);
+
+    console.log(idTecnico, idIncidencia);
 
     var ajax = new XMLHttpRequest();
-    ajax.open('POST', '/openIncd');
+    ajax.open('POST', '/actualizarGestor');
     ajax.onload = function () {
         if (ajax.status == 200) {
-
+            updateFilter();
         }
-    }
+    };
+
+    ajax.send(formdata);
 }

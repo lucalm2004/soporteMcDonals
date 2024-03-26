@@ -74,4 +74,15 @@ class GestorController extends Controller
 
         return response()->json($query);
     }
+    public function actualizarGestor(Request $request)
+    {
+        $idIncidencia = $request->input('idIncidencia');
+        $idTecnico = $request->input('idTecnico');
+
+        $resultado = Incidencia::find($idIncidencia);
+
+        $resultado->ID_Tecnico = $idTecnico;
+
+        $resultado->save();
+    }
 }
